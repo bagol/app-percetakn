@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?=base_url("Produk/add")?>" method="post">
+            <form enctype='multipart/form-data' action="<?=base_url("Produk/addProduk")?>" method="post">
                 <div class="modal-body px-4">
                     <!-- nama Produk -->
                     <div class="row form-group">
@@ -114,7 +114,7 @@ const item = `
     </div>
 `;
 add.addEventListener("click", () => {
-    bahan.innerHTML += item;
+    bahan.insertAdjacentHTML("beforeend", item);
 })
 
 const del = (event) => {
