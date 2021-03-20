@@ -7,6 +7,7 @@ class Produk extends CI_Controller
         $this->load->model('KategoriModel');
         $this->load->model('ProdukModel');
     }
+
     public function index()
     {
         $this->load->view("test");
