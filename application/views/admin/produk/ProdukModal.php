@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?=base_url("Produk/add")?>" method="post">
+            <form enctype='multipart/form-data' action="<?=base_url("Produk/addProduk")?>" method="post">
                 <div class="modal-body px-4">
                     <!-- nama Produk -->
                     <div class="row form-group">
@@ -59,8 +59,7 @@
                     <div class="col-md-12">
                         <div class="d-sm-flex justify-content-between">
                             <h5>Bahan Produk</h5>
-                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i>
-                                bahan</button>
+                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i></button>
                         </div>
                         <hr>
                     </div>
@@ -114,7 +113,7 @@ const item = `
     </div>
 `;
 add.addEventListener("click", () => {
-    bahan.innerHTML += item;
+    bahan.insertAdjacentHTML("beforeend", item);
 })
 
 const del = (event) => {
