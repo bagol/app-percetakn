@@ -123,9 +123,23 @@ class Produk extends CI_Controller
         redirect(base_url("admin/Produk"));
     }
 
-    function updateProduk($produk = null){
-        if($produk === null) return redirect($_SERVER['HTTP_REFERER']);
-    
+    function updateProduk($kode = null){
+        if($kode === null) return redirect($_SERVER['HTTP_REFERER']);
+        $produk = [
+            "nama_produk" => $this->input->post("nama_produk"),
+            "satuan"=> $this->input->post("satuan"),
+        ];
+        if(isset($_FILES["gambar_produk"])){
+            $produk["gambar"] = $this->uploadGambarProduk();
+        }
+        $where = ["kode_produk" => $kode];
+        if($this->ProdukModel->edit($where,$produk)){
+            $this->session->set_flashdata("scc","Produk Berhasil diperbaharui");
+        }else{
+            $this->session->set_flashdata("err","Gagal Memperbaharui Produk");
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     // Akhir Pengentrol Produk
@@ -210,7 +224,7 @@ class Produk extends CI_Controller
     public function uploadGambarProduk()
     {
         $config['upload_path'] = './assets/images/produk/';
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['encrypt_name'] = true;
 
         $this->load->library('upload', $config);
@@ -218,7 +232,7 @@ class Produk extends CI_Controller
         if ($this->upload->do_upload('gambar_produk')) {
             return $this->upload->data("file_name");
         }
-
+        
         return "default.png";
     }
 }
