@@ -9,11 +9,6 @@ class Produk extends CI_Controller
         $this->load->model('BahanModel');
     }
 
-    public function index()
-    {
-        $this->load->view("test");
-    }
-
     // Bagian Pengentrol Kategori
 
     public function deleteKategori($id)
@@ -116,6 +111,23 @@ class Produk extends CI_Controller
         redirect($_SERVER['HTTP_REFERER']);
     }
 
+    function deleteProduk($id = null){
+        if($id === null) return redirect($_SERVER['HTTP_REFERER']);
+
+        $where = ['kode_produk' => $id];
+        if($this->ProdukModel->delete($where)){
+            $this->session->set_flashdata("scc","Produk Dihapus dari daftar");
+        }else{
+            $this->session->set_flashdata("err","Gagal Menghapus Produk ");
+        }
+        redirect(base_url("admin/Produk"));
+    }
+
+    function updateProduk($produk = null){
+        if($produk === null) return redirect($_SERVER['HTTP_REFERER']);
+    
+    }
+
     // Akhir Pengentrol Produk
     // Bagian Pengontorl Bahan Produk
     public function addBahan($kode_produk, $bahan, $harga)
@@ -134,14 +146,34 @@ class Produk extends CI_Controller
 
     }
 
-    public function updateBahan($id)
-    {
-
+    function createBahan($produk= null){
+        if($produk === null){
+            $this->session->set_flashdata("err","Produk Tidak ada");
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        $bahan = [
+            "kode_bahan" => "",
+            "kode_produk" =>$produk,
+            "bahan" => $this->input->post("bahan"),
+            "harga" => $this->input->post("harga")
+        ];
+        if ($this->BahanModel->new($bahan)) {
+            $this->session->set_flashdata("scc","Bahan ditambahkan keproduk");
+        }else{
+            $this->session->set_flashdata("err","terjadi kesalahan Bahan Gagal ditambahkan keproduk");
+        }
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
-    public function deleteBahan($id)
+    public function deleteBahan($id=null)
     {
-
+        if($id===null) return redirect($_SERVER['HTTP_REFERER']);
+        if($this->BahanModel->delete(["kode_bahan" => $id])){
+            $this->session->set_flashdata("scc","Bahan dihapus dari produk");
+        }else{
+            $this->session->set_flashdata("err","Gagal Menghapus Bahan dari produk");
+        }
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     // Akhir Bagian Pengontorl Bahan Produk

@@ -59,8 +59,7 @@
                     <div class="col-md-12">
                         <div class="d-sm-flex justify-content-between">
                             <h5>Bahan Produk</h5>
-                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i>
-                                bahan</button>
+                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i></button>
                         </div>
                         <hr>
                     </div>

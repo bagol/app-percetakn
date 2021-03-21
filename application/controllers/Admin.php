@@ -7,6 +7,7 @@ class Admin extends CI_Controller
         $this->load->model("kategoriModel");
         $this->load->model("BahanModel");
         $this->load->model("KategoriModel");
+        $this->load->model("ProdukModel");
     }
 
     public function index()
@@ -34,9 +35,24 @@ class Admin extends CI_Controller
         $data['title'] = 'Kelola Produk';
         $data['title2'] = 'Produk';
         $data['daftarKategori'] = $this->KategoriModel->find()->result_array();
+        $data['daftarProduk'] = $this->KategoriModel->getKategoriProduk()->result_array();
         $this->load->view("admin/layout/header", $data);
-        $this->load->view("admin/produk/Produk");
+        $this->load->view("admin/produk/Produk",$data);
         $this->load->view("admin/produk/ProdukModal", $data);
         $this->load->view("admin/layout/footer");
+        $this->load->view("admin/produk/produkScript", $data);
+    }
+
+    public function detailProduk($id = null)
+    {
+        if($id === null) return redirect($_SERVER['HTTP_REFERER']);
+        $data['title'] = 'Detail Produk';
+        $data['title2'] = 'Produk';
+        $data['produk'] = $this->ProdukModel->getDetailProduk($id)->result_array();
+        $data['bahan'] = $this->BahanModel->find(['kode_produk'=>$id])->result_array();
+        $this->load->view("admin/layout/header", $data);
+        $this->load->view("admin/produk/detailProduk", $data);
+        $this->load->view("admin/layout/footer");
+        $this->load->view("admin/produk/detailProdukModal", $data);
     }
 }

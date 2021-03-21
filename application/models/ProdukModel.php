@@ -49,4 +49,11 @@ class ProdukModel extends CI_Model
             return $this->db->get();
         }
     }
+
+    function getDetailProduk($kode){
+        $this->db->select('*');
+            $this->db->from('produk');
+            $this->db->join('kategori', 'kategori.kode_kategori= produk.kode_kategori and produk.kode_produk =' . $kode);
+            return $this->db->get();
+    }
 }
