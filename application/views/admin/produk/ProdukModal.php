@@ -56,6 +56,7 @@
                             <input type="file" id="gambar" name="gambar_produk" class="form-control-file">
                         </div>
                     </div>
+                    <!-- bagian bahan -->
                     <div class="col-md-12">
                         <div class="d-sm-flex justify-content-between">
                             <h5>Bahan Produk</h5>

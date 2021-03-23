@@ -72,7 +72,8 @@
     <div class="card-footer d-flex justify-content-between ">
         <a class="btn btn-primary" href="<?=$_SERVER['HTTP_REFERER']?>"><i class="fa fa-arrow-left"></i> Ubah Produk</a>
         <div>
-            <button class="btn btn-success"><i class="fa fa-edit"></i> Ubah Produk</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#ubahModal"><i class="fa fa-edit"></i> Ubah
+                Produk</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#hapusModal"><i class="fa fa-trash"></i>
                 Hapus Produk</button>
         </div>

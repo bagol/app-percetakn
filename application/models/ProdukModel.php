@@ -23,7 +23,7 @@ class ProdukModel extends CI_Model
     public function edit($where, $data)
     {
         $this->db->where($where);
-        $this->db->update($this->_table, $data);
+        return $this->db->update($this->_table, $data);
     }
 
     // menghapus Produk

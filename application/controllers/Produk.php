@@ -124,15 +124,18 @@ class Produk extends CI_Controller
     }
 
     function updateProduk($kode = null){
+        
         if($kode === null) return redirect($_SERVER['HTTP_REFERER']);
         $produk = [
             "nama_produk" => $this->input->post("nama_produk"),
             "satuan"=> $this->input->post("satuan"),
+            "kode_kategori"=> $this->input->post("kategori")
         ];
-        if(isset($_FILES["gambar_produk"])){
+        if($_FILES["gambar_produk"]['name'] != ""){
             $produk["gambar"] = $this->uploadGambarProduk();
         }
         $where = ["kode_produk" => $kode];
+        
         if($this->ProdukModel->edit($where,$produk)){
             $this->session->set_flashdata("scc","Produk Berhasil diperbaharui");
         }else{

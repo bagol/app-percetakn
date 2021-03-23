@@ -50,6 +50,7 @@ class Admin extends CI_Controller
         $data['title2'] = 'Produk';
         $data['produk'] = $this->ProdukModel->getDetailProduk($id)->result_array();
         $data['bahan'] = $this->BahanModel->find(['kode_produk'=>$id])->result_array();
+        $data['kategori'] = $this->KategoriModel->find()->result_array();
         $this->load->view("admin/layout/header", $data);
         $this->load->view("admin/produk/detailProduk", $data);
         $this->load->view("admin/layout/footer");
