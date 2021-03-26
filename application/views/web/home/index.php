@@ -131,6 +131,7 @@
                 </div>
                 <!--features_items-->
 
+                <?php if($rekomendasi > 0): ?>
                 <div class="recommended_items">
                     <!--recommended_items-->
                     <h2 class="title text-center">recommended items</h2>
@@ -240,6 +241,7 @@
                         </a>
                     </div>
                 </div>
+                <?php endif; ?>
                 <!--/recommended_items-->
 
             </div>

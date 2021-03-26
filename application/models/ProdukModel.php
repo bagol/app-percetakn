@@ -57,8 +57,8 @@ class ProdukModel extends CI_Model
             return $this->db->get();
     }
 
-    function getProdukLimit($limit=6){
+    function getProdukLimit($limit=6,$offset=0){
        
-        return $this->db->query("SELECT p.kode_produk,p.nama_produk,p.gambar,MIN(b.harga) as harga from produk p join produk_bahan b on p.kode_produk= b.kode_produk GROUP BY p.kode_produk LIMIT ".$limit); 
+        return $this->db->query("SELECT p.kode_produk,p.nama_produk,p.gambar,MIN(b.harga) as harga from produk p join produk_bahan b on p.kode_produk= b.kode_produk GROUP BY p.kode_produk LIMIT ".$offset.','.$limit); 
     }
 }
