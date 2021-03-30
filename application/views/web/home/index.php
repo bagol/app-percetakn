@@ -102,25 +102,28 @@
                 <div class="features_items">
                     <!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <?php foreach($daftarProduk as $produk): ?>
+                    <?php foreach ($daftarProduk as $produk) : ?>
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="<?= base_url('assets/images/produk/') ?><?=$produk['gambar']?>"
-                                        alt="image produk <?=$produk['nama_produk']?>"
+                                    <img src="<?= base_url('assets/images/produk/') ?><?= $produk['gambar'] ?>"
+                                        alt="image produk <?= $produk['nama_produk'] ?>"
                                         style="min-height: 250px; max-height:250px;" />
-                                    <h2><?=rupiah($produk['harga'])?></h2>
-                                    <p><?=$produk['nama_produk']?></p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>tambah ke keranjang</a>
+                                    <h2><?= rupiah($produk['harga']) ?></h2>
+                                    <p><?= $produk['nama_produk'] ?></p>
+                                    <a href="<?= base_url('web/produk_detail/') ?><?= $produk["kode_produk"] ?>"
+                                        class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>tambah ke
+                                        keranjang</a>
                                 </div>
                                 <div class="product-overlay">
                                     <div class="overlay-content">
-                                        <h2><?=rupiah($produk['harga'])?></h2>
-                                        <p><?=$produk['nama_produk']?></p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>tambah ke keranjang</a>
+                                        <h2><?= rupiah($produk['harga']) ?></h2>
+                                        <p><?= $produk['nama_produk'] ?></p>
+                                        <a href="<?= base_url('web/produk_detail/') ?><?= $produk["kode_produk"] ?>"
+                                            class="btn btn-default add-to-cart">
+                                            <i class="fa fa-shopping-cart"></i>tambah ke keranjang
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +134,7 @@
                 </div>
                 <!--features_items-->
 
-                <?php if($rekomendasi > 0): ?>
+                <?php if ($rekomendasi > 0) : ?>
                 <div class="recommended_items">
                     <!--recommended_items-->
                     <h2 class="title text-center">recommended items</h2>

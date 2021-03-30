@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-class Home extends CI_Controller
+class Web extends CI_Controller
 {
   public function __construct()
   {
@@ -42,8 +42,11 @@ class Home extends CI_Controller
   {
     if ($id == null) return redirect($_SERVER['HTTP_REFERER']);
     $where = ['kode_produk' => $id];
-    $data['produk'] = $this->ProdukModel->find($where)->result_array()[0];
-    $data['bahan'] = $this->BahanModel->find($where)->result_array();
+    $produk = $this->ProdukModel->find($where);
+    if ($produk->num_rows() < 1) return redirect($_SERVER['HTTP_REFERER']);
+    $data['produk'] = $produk->result_array()[0];
+
+    $data['bahan'] = $this->BahanModel->find($where)->result();
     $this->load->view('web/layout/header');
     $this->load->view('web/produk/index', $data);
     $this->load->view('web/layout/footer');

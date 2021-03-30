@@ -79,7 +79,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="<?=base_url("home/login")?>"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="<?= base_url("web/login") ?>"><i class="fa fa-lock"></i> Login</a></li>
                             </ul>
                         </div>
                     </div>
@@ -104,16 +104,16 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="<?=base_url()?>" class="active">Home</a></li>
+                                <li><a href="<?= base_url() ?>" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="#">Products</a></li>
                                         <li><a href="#">Checkout</a></li>
                                         <li><a href="#">Cart</a></li>
-                                        <li><a href="<?=base_url("home/login")?>">Login</a></li>
+                                        <li><a href="<?= base_url("web/login") ?>">Login</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="<?=base_url("home/contact")?>">Contact</a></li>
+                                <li><a href="<?= base_url("web/contact") ?>">Contact</a></li>
                             </ul>
                         </div>
                     </div>
