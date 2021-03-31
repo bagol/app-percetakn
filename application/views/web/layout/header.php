@@ -120,7 +120,7 @@
                                 <li><a href="<?=base_url()?>" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="<?=base_url('web/index#')?>">Products</a></li>
+                                        <li><a href="<?=base_url('web/index#produk')?>">Products</a></li>
                                         <li><a href="<?=base_url('web/checkout')?>">Checkout</a></li>
                                         <li><a href="<?=base_url('web/cart')?>">Cart</a></li>
                                     </ul>

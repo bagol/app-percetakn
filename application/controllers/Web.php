@@ -59,7 +59,11 @@ class Web extends CI_Controller {
 			return redirect("web/login");
 		}
 
-		echo "halaman checkout";
+        $this->load->view("web/layout/header");
+        $this->load->view("web/checkout/index");
+        $this->load->view("web/layout/header");
+
+  
 
 	}
 
@@ -69,7 +73,9 @@ class Web extends CI_Controller {
 			return redirect("web/login");
 		}
 
-		echo "halaman cart";
+		$this->load->view("web/layout/header");
+    $this->load->view("web/cart/index");
+    $this->load->view("web/layout/header");
 
 	}
 }
