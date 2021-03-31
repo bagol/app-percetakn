@@ -7,26 +7,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Home | Dream Printing</title>
-    <link href="<?= base_url('assets/template') ?>/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/prettyPhoto.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/price-range.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/animate.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/main.css" rel="stylesheet">
-    <link href="<?= base_url('assets/template') ?>/css/responsive.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/prettyPhoto.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/price-range.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/animate.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/main.css" rel="stylesheet">
+    <link href="<?=base_url('assets/template')?>/css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="<?= base_url('assets/template') ?>/js/html5shiv.js"></script>
-    <script src="<?= base_url('assets/template') ?>/js/respond.min.js"></script>
+    <script src="<?=base_url('assets/template')?>/js/html5shiv.js"></script>
+    <script src="<?=base_url('assets/template')?>/js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="<?= base_url('assets/template') ?>/images/ico/favicon.ico">
+    <link rel="shortcut icon" href="<?=base_url('assets/template')?>/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
-        href="<?= base_url('assets/template') ?>/images/ico/apple-touch-icon-144-precomposed.png">
+        href="<?=base_url('assets/template')?>/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
-        href="<?= base_url('assets/template') ?>/images/ico/apple-touch-icon-114-precomposed.png">
+        href="<?=base_url('assets/template')?>/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72"
-        href="<?= base_url('assets/template') ?>/images/ico/apple-touch-icon-72-precomposed.png">
+        href="<?=base_url('assets/template')?>/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed"
-        href="<?= base_url('assets/template') ?>/images/ico/apple-touch-icon-57-precomposed.png">
+        href="<?=base_url('assets/template')?>/images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <!--/head-->
 
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-4 clearfix">
                         <div class="logo pull-left">
-                            <a href="<?= base_url() ?>"><img src="<?= base_url('assets') ?>/images/logo-asli.png"
+                            <a href="<?=base_url()?>"><img src="<?=base_url('assets')?>/images/logo-asli.png"
                                     alt="Dream Printing" width="200px" /></a>
                         </div>
                         <div class="btn-group pull-right clearfix">
@@ -77,9 +77,22 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="<?= base_url("web/login") ?>"><i class="fa fa-lock"></i> Login</a></li>
+                                <li>
+                                    <a href="<?=base_url("web/checkout")?>"><i class="fa fa-crosshairs"></i> Checkout</a>
+                                </li>
+                                <li>
+                                    <a href="<?=base_url("web/cart")?>"><i class="fa fa-shopping-cart"></i> Cart</a>
+                                </li>
+                                <?php if ($this->session->userdata('pelanggan_logged')) {?>
+                                    <li>
+                                        <a href=""><i class="fa fa-user"></i> Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?=base_url("Auth/logout_pelanggan")?>"><i class="fa fa-unlock"></i> Logout</a>
+                                    </li>
+                                <?php } else {?>
+                                     <li><a href="<?=base_url("web/login")?>"><i class="fa fa-lock"></i> Login</a></li>
+                                <?php }?>
                             </ul>
                         </div>
                     </div>
@@ -104,16 +117,15 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="<?= base_url() ?>" class="active">Home</a></li>
+                                <li><a href="<?=base_url()?>" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">Checkout</a></li>
-                                        <li><a href="#">Cart</a></li>
-                                        <li><a href="<?= base_url("web/login") ?>">Login</a></li>
+                                        <li><a href="<?=base_url('web/index#')?>">Products</a></li>
+                                        <li><a href="<?=base_url('web/checkout')?>">Checkout</a></li>
+                                        <li><a href="<?=base_url('web/cart')?>">Cart</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="<?= base_url("web/contact") ?>">Contact</a></li>
+                                <li><a href="<?=base_url("web/contact")?>">Contact</a></li>
                             </ul>
                         </div>
                     </div>
