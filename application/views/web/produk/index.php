@@ -40,7 +40,8 @@
                             <img src="<?= base_url("assets/template/") ?>images/product-details/rating.png" alt="" />
                             <p><b>Deskripsi Produk</b> : <?= $produk['deskripsi'] ?></p>
                             <br>
-                            <form action="<?= base_url("Pesanan/test") ?>" method="post">
+                            <form action="<?= base_url("Pesanan/create") ?>" method="post">
+                                <input type="hidden" value="<?=$produk['kode_produk']?>" name="kode_produk">
                                 <div id="app">
                                     <div class="row ">
                                         <div class="col col-sm-3">
@@ -49,7 +50,7 @@
                                         <div class="col col-sm-7">
                                             <select name="bahan" class="form-control" @change="handleChange">
                                                 <template v-for="b in bahan">
-                                                    <option :data-harga="b.harga">{{b.bahan}}
+                                                    <option :data-harga="b.harga" :value="b.kode_bahan">{{b.bahan}}
                                                     </option>
                                                 </template>
                                             </select>
@@ -72,35 +73,53 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin:0 0 10px 0;">
-                                        <div class="col col-md-3 text-left"
-                                            style="padding:0 !important; text-align:left;">
-                                            <p>Size</p>
-                                        </div>
-                                        <div class="col col-md-7 row" style="padding:0 !important;">
+                                    <template v-if="satuan == 'meter'">
+                                        <div class="row" style="margin:0 0 10px 0;">
+                                            <div class="col col-md-3 text-left"
+                                                style="padding:0 !important; text-align:left;">
+                                                <p>Size</p>
+                                            </div>
+                                            <div class="col col-md-7 row" style="padding:0 !important;">
 
-                                            <div class="col col-md-6"
-                                                style="margin:0 !important; padding:0 5px 0 0 !important;">
-                                                <input type="number" name="lebar" v-model="lebar" class="form-control"
-                                                    placeholder="Lebar" min="1">
-                                            </div>
-                                            <div class="col col-md-6" style="margin:0 !important;padding:0 !important;">
-                                                <input type="number" v-model="tinggi" class="form-control"
-                                                    placeholder="tinggi" name="tinggi" min="1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col col-md-11 row">
-                                            <div class="col col-sm-3">
-                                                Kuantitas
-                                            </div>
-                                            <div class="col col-sm-8" style="padding: 0;">
-                                                <input type="number" v-model="kuantitas" name="kuantitas"
-                                                    placeholder="berapa banyak " class="form-control" min="1">
+                                                <div class="col col-md-6"
+                                                    style="margin:0 !important; padding:0 5px 0 0 !important;">
+                                                    <input type="number" name="lebar" v-model="lebar" class="form-control"
+                                                        placeholder="Lebar" min="1">
+                                                </div>
+                                                <div class="col col-md-6" style="margin:0 !important;padding:0 !important;">
+                                                    <input type="number" v-model="tinggi" class="form-control"
+                                                        placeholder="tinggi" name="tinggi" min="1">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col col-md-11 row">
+                                                <div class="col col-sm-3">
+                                                    Kuantitas
+                                                </div>
+                                                <div class="col col-sm-8" style="padding: 0;">
+                                                    <input type="number" v-model="kuantitas" name="kuantitas"
+                                                        placeholder="berapa banyak " class="form-control" min="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    
+                                    <template v-else>
+                                        <div class="row">
+                                            <div class="col col-md-11 row">
+                                                <div class="col col-sm-3">
+                                                    Kuantitas
+                                                </div>
+                                                <div class="col col-sm-8" style="padding: 0;">
+                                                    <input type="number" v-model="qty" name="kuantitas"
+                                                        placeholder="berapa banyak " class="form-control" min="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+
                                     <template v-if="total != 0">
 
                                         <div class="row" style="margin-top:10px;">
@@ -152,12 +171,14 @@ const vm = new Vue({
         tinggi: "",
         total: 0,
         kuantitas: "",
-        disabled: true
+        disabled: true,
+        qty:0
     },
     methods: {
         handleChange(e) {
             if (e.target.options.selectedIndex > -1) {
                 this.harga = e.target.options[e.target.options.selectedIndex].dataset.harga
+                console.log(e.target.options[e.target.options.selectedIndex].value);
             }
         },
         rupiah(uang) {
@@ -174,16 +195,22 @@ const vm = new Vue({
     watch: {
         lebar() {
             this.total = (this.lebar * this.tinggi) * this.harga * this.kuantitas;
-            this.getDisabled();
+            
         },
         tinggi() {
             this.total = (this.lebar * this.tinggi) * this.harga * this.kuantitas;
-            this.getDisabled();
+            
         },
         kuantitas() {
             this.total = (this.lebar * this.tinggi) * this.harga * this.kuantitas;
             this.getDisabled();
         },
+
+        qty(){
+            this.total = this.harga * this.qty; 
+            this.getDisabled();
+        }
+
     }
 })
 </script>

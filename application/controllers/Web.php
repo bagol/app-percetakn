@@ -4,6 +4,7 @@ class Web extends CI_Controller {
 		parent::__construct();
 		$this->load->model("ProdukModel");
 		$this->load->model("BahanModel");
+		$this->load->model("PesananModel");
 		$this->load->helper("rupiah");
 	}
 	public function index() {
@@ -36,6 +37,11 @@ class Web extends CI_Controller {
 	public function produk_detail($id = null) {
 		if ($id == null) {
 			return redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		if (!$this->session->userdata("pelanggan_logged")) {
+			$this->session->set_flashdata("err", "anda harus login terlebih dahulu");
+			return redirect("web/login");
 		}
 
 		$where = ['kode_produk' => $id];
@@ -72,10 +78,20 @@ class Web extends CI_Controller {
 			$this->session->set_flashdata("err", "anda harus login terlebih dahulu");
 			return redirect("web/login");
 		}
+		$pesanan = $this->PesananModel->find($this->session->userdata('kode_pelanggan'));
 
-		$this->load->view("web/layout/header");
-    $this->load->view("web/cart/index");
-    $this->load->view("web/layout/footer");
+		if($pesanan->num_rows() > 0){
+			$data['pesanan'] = $pesanan->result_array()[0];
+		}else{
+			$data['pesanan'] = null;
+		}
+		$data['produk'] = $this->ProdukModel
+		->find(['kode_produk' => $data['pesanan']['kode_produk']])
+		->result_array()[0];
+		
+ 		$this->load->view("web/layout/header");
+		$this->load->view("web/cart/index",$data);
+		$this->load->view("web/layout/footer");
 
 	}
 }

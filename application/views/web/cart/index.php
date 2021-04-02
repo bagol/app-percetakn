@@ -21,61 +21,32 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="cart_product">
-							<a href=""><img src="images/cart/one.png" alt="Gambar Produk"></a>
+						<td class="cart_product text-center">
+							<a href=""><img src="<?=base_url("assets/images/produk/")?><?=$pesanan['gambar']?>" alt="Gambar Produk" style="width: 100px;"></a>
 						</td>
 						<td class="cart_description">
-							<h4><a href="">Nama Produk</a></h4>
-							<p>Web ID: 1089772 (Kode produk)</p>
+							<h4><a href=""><?=$pesanan['nama_produk']?></a></h4>
+							<p>kode pesanan: <?=$pesanan['kode_pesanan']?> </p>
 						</td>
 						<td class="cart_price">
-							<p>$59</p>
+							<p><?=rupiah($pesanan["harga"])?></p>
 						</td>
 						<td class="cart_price">
-							<p>4 meter</p>
+							<p><?=$pesanan['ukuran']?></p>
 						</td>
 						<td class="cart_quantity">
 							<div class="cart_quantity_button">
 								<a class="cart_quantity_up" href=""> + </a>
-								<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+								<input class="cart_quantity_input" type="text" name="quantity" value="<?=$pesanan['kuantitas']?>" autocomplete="off" size="2">
 								<a class="cart_quantity_down" href=""> - </a>
 							</div>
 						</td>
 						<td class="cart_total">
-							<p class="cart_total_price">Rp.200.000</p>
+							<p class="cart_total_price"><?=rupiah($pesanan['harga_total'])?></p>
 						</td>
 						<td class="">
-							<a class="btn btn-danger" href="#"><i class="fa fa-times"></i> Batal</a>
-							<a class="btn btn-success" href="#"><i class="fa fa-check"></i> Beli</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="cart_product">
-							<a href=""><img src="images/cart/one.png" alt="Gambar Produk"></a>
-						</td>
-						<td class="cart_description">
-							<h4><a href="">Nama Produk</a></h4>
-							<p>Web ID: 1089772 (Kode produk)</p>
-						</td>
-						<td class="cart_price">
-							<p>$59</p>
-						</td>
-						<td class="cart_price">
-							<p>1/lembar</p>
-						</td>
-						<td class="cart_quantity">
-							<div class="cart_quantity_button">
-								<a class="cart_quantity_up" href=""> + </a>
-								<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-								<a class="cart_quantity_down" href=""> - </a>
-							</div>
-						</td>
-						<td class="cart_total">
-							<p class="cart_total_price">Rp.200.000</p>
-						</td>
-						<td class="">
-							<a class="btn btn-danger" href="#"><i class="fa fa-times"></i> Batal</a>
-							<a class="btn btn-success" href="#"><i class="fa fa-check"></i> Beli</a>
+							<a class="btn btn-danger" href="<?=base_url("Pesanan/delete/")?><?=$pesanan['kode_pesanan']?>"><i class="fa fa-times"></i> Batal</a>
+							<a class="btn btn-success" href="<?=base_url("Web/checkout/")?>"><i class="fa fa-check"></i> Beli</a>
 						</td>
 					</tr>
 				</tbody>
