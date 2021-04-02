@@ -61,7 +61,7 @@ class Web extends CI_Controller {
 
         $this->load->view("web/layout/header");
         $this->load->view("web/checkout/index");
-        $this->load->view("web/layout/header");
+        $this->load->view("web/layout/footer");
 
   
 
@@ -75,7 +75,7 @@ class Web extends CI_Controller {
 
 		$this->load->view("web/layout/header");
     $this->load->view("web/cart/index");
-    $this->load->view("web/layout/header");
+    $this->load->view("web/layout/footer");
 
 	}
 }
