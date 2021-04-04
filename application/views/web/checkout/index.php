@@ -1,5 +1,5 @@
 <section id="cart_items">
-    <div class="container">
+    <div class="container" style="margin-bottom: 10px;">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
@@ -7,37 +7,100 @@
             </ol>
         </div>
         <!--/breadcrums-->
-
-        <div class="step-one">
-            <h2 class="heading">Step1</h2>
-        </div>
-        <div class="checkout-options">
-            <h3>New User</h3>
-            <p>Checkout options</p>
-            <ul class="nav">
-                <li>
-                    <label><input type="checkbox"> Register Account</label>
-                </li>
-                <li>
-                    <label><input type="checkbox"> Guest Checkout</label>
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-times"></i>Cancel</a>
-                </li>
-            </ul>
-        </div>
-        <!--/checkout-options-->
-
         <div class="register-req">
-            <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+            <p>
+                Tolong Lengkapi biodata anda anggar proses pengiriman lebih mudah, Klik <a href="#">Profile</a>
+                untuk melengkapi biodata
+            </p>
         </div>
         <!--/register-req-->
 
         <div class="shopper-informations">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="shopper-info">
-                        <p>Shopper Information</p>
+                        <p >Pesanan</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                 <figure>
+                                    <img src="<?=base_url('assets/images/pesanan/')?><?=$pesanan['file']?>" alt="gambar pesanan<?= $pesanan['deskripsi'] ?>" width="100%">
+                                </figure>
+                            </div>
+                            <div class="col-sm-6" style="margin-top: 10px;">
+                                <style>
+                                    td {
+                                        padding: 10px;
+                                    }
+                                </style>
+                                <table width="100%" class="table table-bordered">
+                                    <tr>
+                                        <th>No Pesanan</th>
+                                        <td><?=$pesanan['kode_pesanan']?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nama Produk</th>
+                                        <td><?=$pesanan['nama_produk']?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Harga</th>
+                                        <td><?=rupiah($pesanan['harga'])?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ukuran</th>
+                                        <td><?=$pesanan['ukuran']?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kuantitas</th>
+                                        <td><?=rupiah($pesanan['harga_total'])?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tanggal Pesanan</th>
+                                        <td><?=$pesanan['tanggal']?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="bill-to">
+                        <p>Pengiriman</p>
+                         <div class="form-one">
+                            <form>
+                                <label for="province">Provinsi</label>
+                                <select id="province" name="province" id="" class="form-control">
+                                   <option value="0">Pilih Provisi</option>
+                                </select>
+                                <label for="city">Kota</label> 
+                                <select name="" id="city" class="form-control">
+                                    <option value="0">Pilih Kota</option>
+                                </select>
+                                    <label for="kecamatan">Kecamatan</label> 
+                                <select name="kecamatan" id="kecamatan" class="form-control">
+                                   <option value="0">Pilih Kecamatan</option>
+                                </select>
+                                <label for="kelurahan">Kelurahan</label> 
+                                <select name="" id="kelurahan" class="form-control">
+                                   <option value="0">Pilih Kelurahan</option>
+                                </select>
+                                    <label for="kode-pos">Kode Pos</label>
+                                <input type="text" name="kode-pos" id="kode-pos" placeholder="No Kode Post" class="form-control" >
+                            </form>
+                        </div>
+                        <div class="form-two">
+                           
+                               <label for="alamat">Alamat</label>
+                               <textarea name="" id="" cols="30" rows="10" class="form-control">Maukan alamat dengan lengkap Nama jalan No.rumah 
+                               </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    
+                </div>
+               <!--  <div class="col-sm-3">
+                    <div class="shopper-info">
+                        <p>Informasi Pembeli</p>
                         <form>
                             <input type="text" placeholder="Display Name">
                             <input type="text" placeholder="User Name">
@@ -95,149 +158,8 @@
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="order-message">
-                        <p>Shipping Order</p>
-                        <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
-                            rows="16"></textarea>
-                        <label><input type="checkbox"> Shipping to bill address</label>
-                    </div>
-                </div>
+                </div> -->            
             </div>
-        </div>
-        <div class="review-payment">
-            <h2>Review & Payment</h2>
-        </div>
-
-        <div class="table-responsive cart_info">
-            <table class="table table-condensed">
-                <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Item</td>
-                        <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                    autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                    autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                    autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                        <td colspan="2">
-                            <table class="table table-condensed total-result">
-                                <tr>
-                                    <td>Cart Sub Total</td>
-                                    <td>$59</td>
-                                </tr>
-                                <tr>
-                                    <td>Exo Tax</td>
-                                    <td>$2</td>
-                                </tr>
-                                <tr class="shipping-cost">
-                                    <td>Shipping Cost</td>
-                                    <td>Free</td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td><span>$61</span></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="payment-options">
-            <span>
-                <label><input type="checkbox"> Direct Bank Transfer</label>
-            </span>
-            <span>
-                <label><input type="checkbox"> Check Payment</label>
-            </span>
-            <span>
-                <label><input type="checkbox"> Paypal</label>
-            </span>
         </div>
     </div>
 </section>

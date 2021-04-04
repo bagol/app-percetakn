@@ -50,7 +50,7 @@
                                     <tbody>
                                         <?php if(count($bahan) < 1){?>
                                         <tr>
-                                            <td colspan="4" class="text-center text-danger">Tidak Ada Data</td>
+                                            <td colspan="5" class="text-center bg-dark text-white">Belum ada data bahan</td>
                                         </tr>
                                         <?php }else{ $no = 1; foreach($bahan as $b): ?>
                                         <tr>

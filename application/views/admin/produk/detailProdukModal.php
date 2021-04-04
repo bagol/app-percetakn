@@ -43,10 +43,26 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                        <div class="col col-md-3"><label for="bahan" class=" form-control-label">Berat Bahan</label>
+                        <div class="col col-md-3"><label for="berat" class=" form-control-label">Berat Bahan</label>
                         </div>
                         <div class="col-12 col-md-9">
-                            <input type="number" min="1" id="bahan" name="berat" placeholder="Berat bahan per gram"
+                            <input type="number" min="1" id="berat" name="berat" placeholder="Berat bahan per gram"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="lebar" class=" form-control-label">Lebar Bahan</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="number" min="1" id="lebar" name="lebar" placeholder="Lebar bahan per cm"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="panjang" class=" form-control-label">Panjang Bahan</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="number" min="1" id="panjang" name="panjang" placeholder="Panjang bahan per cm"
                                 class="form-control" required>
                         </div>
                     </div>

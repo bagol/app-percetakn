@@ -8,24 +8,26 @@ class Pesanan extends CI_Controller
 	}
     function create()
     {
+        $pesanan = $this->uploadGambarPesanan();
+        if($pesanan == false){
+            $this->session->set_flashdata("err","file gagal diupload");
+            return redirect($_SERVER['HTTP_REFERER']);  
+        } 
 
-        echo json_encode($this->input->post());
-        die();
         $data = [
-            "bahan" => $this->input->post("bahan");
         	"kode_pesanan" => "",
         	"kode_produk" => $this->input->post("kode_produk"),
+            "kode_bahan" => $this->input->post("bahan"),
         	"kode_pelanggan" => $this->session->userdata("kode_pelanggan"),
-        	"status" => 'Memesan',
+        	"status" => 'memesan',
         	"tanggal" =>  date("Y-m-d"),
+            "ukuran" => $this->input->post("ukuran"),
         	"kuantitas" => $this->input->post("kuantitas"),
+            "berat" => $this->input->post("berat"),
+            "file" =>  $pesanan,
         	"harga_total" => $this->input->post("total"),
         ];
-    	if($this->input->post("lebar") != "" && $this->input->post("tinggi") != ""){
-    		$data['ukuran'] = (int) $this->input->post("lebar") * (int) $this->input->post("tinggi") ." meter";	
-    	}else{
-    		$data['ukuran'] = "1/lembar";
-    	}
+
         
 
     	if($this->PesananModel->store($data)){
@@ -38,4 +40,19 @@ class Pesanan extends CI_Controller
     }
 
 
+    // upload gambar Pesanan
+    public function uploadGambarPesanan()
+    {
+        $config['upload_path'] = './assets/images/pesanan/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+        $config['encrypt_name'] = true;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file')) {
+            return $this->upload->data("file_name");
+        }
+        
+        return false;
+    }
 }

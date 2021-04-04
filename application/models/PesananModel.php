@@ -11,11 +11,15 @@ class PesananModel extends CI_Model{
     }
 
     // function untuk mengambil pesanan yang spesifik
-    function find($kode_pesanan = ""){
-    	if(!$kode_pesanan) return false;
+    function find($kode_pelanggan = "",$status=null,$kodePesanan = null){
+    	if(!$kode_pelanggan) return false;
     	// mengambil data spesifik sesuai nilai where yang ditentukan
-    	
-    	return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pelanggan =".$kode_pesanan);
+    	if($kodePesanan == null){
+        	return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pelanggan =".$kode_pelanggan);
+        }
+
+        return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pesanan =".$kodePesanan." and a.kode_pelanggan =".$kode_pelanggan." and a.status=".$status);
+
     }
 
     // function untuk mengambil keseluruhan desanan

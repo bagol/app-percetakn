@@ -56,35 +56,6 @@
                             <input type="file" id="gambar" name="gambar_produk" class="form-control-file">
                         </div>
                     </div>
-                    <!-- bagian bahan -->
-                    <div class="col-md-12">
-                        <div class="d-sm-flex justify-content-between">
-                            <h5>Bahan Produk</h5>
-                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i></button>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-12" id="bahan">
-                        <div class="row form-group bahan-item">
-                            <div class="col col-sm-2">
-                                <Label>Bahan</Label>
-                            </div>
-                            <div class="col col-sm-3">
-                                <input type="text" name="nama_bahan[]" placeholder="Jenis..." class="form-control">
-                            </div>
-                            <div class="col col-sm-2">
-                                <input type="text" name="berat[]" placeholder="Berat/grm" class="form-control">
-                            </div>
-                            <div class="col col-sm-3">
-                                <input type="number" name="harga[]" placeholder="Harga..." class="form-control">
-                            </div>
-                            <div class="col col-sm-2">
-                                <button class="btn btn-secondary delete" onclick="del(this)"><i
-                                        class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -96,36 +67,3 @@
     </div>
 </div>
 
-<!-- script for -->
-<script>
-const add = document.querySelector("#add");
-const bahan = document.querySelector("#bahan");
-const item = `
-    <div class="row form-group bahan-item">
-        <div class="col col-sm-2">
-            <Label>Bahan</Label>
-        </div>
-        <div class="col col-sm-3">
-            <input type="text" name="nama_bahan[]" placeholder="Jenis..." class="form-control">
-        </div>
-        <div class="col col-sm-2">
-            <input type="text" name="berat[]" placeholder="Berat/grm" class="form-control">
-        </div>
-        <div class="col col-sm-3">
-            <input type="number" name="harga[]" placeholder="Harga..." class="form-control">
-        </div>
-        <div class="col col-sm-2">
-            <button class="btn btn-secondary delete" onclick="del(this)"><i class="fa fa-minus"></i></button>
-        </div>
-    </div>
-`;
-add.addEventListener("click", () => {
-    bahan.insertAdjacentHTML("beforeend", item);
-})
-
-const del = (event) => {
-    const itemm = event.parentElement;
-    const item = itemm.parentElement;
-    item.remove();
-}
-</script>

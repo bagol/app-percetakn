@@ -16,39 +16,59 @@
 						<td class="quantity">ukuran</td>
 						<td class="quantity">Kuantitas</td>
 						<td class="total">Total</td>
-						<td></td>
+						<td width="220px"></td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="cart_product text-center">
-							<a href=""><img src="<?=base_url("assets/images/produk/")?><?=$pesanan['gambar']?>" alt="Gambar Produk" style="width: 100px;"></a>
-						</td>
-						<td class="cart_description">
-							<h4><a href=""><?=$pesanan['nama_produk']?></a></h4>
-							<p>kode pesanan: <?=$pesanan['kode_pesanan']?> </p>
-						</td>
-						<td class="cart_price">
-							<p><?=rupiah($pesanan["harga"])?></p>
-						</td>
-						<td class="cart_price">
-							<p><?=$pesanan['ukuran']?></p>
-						</td>
-						<td class="cart_quantity">
-							<div class="cart_quantity_button">
-								<a class="cart_quantity_up" href=""> + </a>
-								<input class="cart_quantity_input" type="text" name="quantity" value="<?=$pesanan['kuantitas']?>" autocomplete="off" size="2">
-								<a class="cart_quantity_down" href=""> - </a>
-							</div>
-						</td>
-						<td class="cart_total">
-							<p class="cart_total_price"><?=rupiah($pesanan['harga_total'])?></p>
-						</td>
-						<td class="">
-							<a class="btn btn-danger" href="<?=base_url("Pesanan/delete/")?><?=$pesanan['kode_pesanan']?>"><i class="fa fa-times"></i> Batal</a>
-							<a class="btn btn-success" href="<?=base_url("Web/checkout/")?>"><i class="fa fa-check"></i> Beli</a>
-						</td>
-					</tr>
+					<?php if($pesanan != null){ ?>
+						<?php foreach ($pesanan as $p): ?>
+							<tr>
+								<td class="cart_product text-center">
+									<a href=""><img src="<?=base_url("assets/images/pesanan/")?><?=$p['file']?>" alt="Gambar Produk" style="width: 100px;"></a>
+								</td>
+								<td class="cart_description">
+									<h4><a href=""><?=$p['nama_produk']?></a></h4>
+									<p>kode pesanan: <?=$p['kode_pesanan']?> </p>
+								</td>
+								<td class="cart_price">
+									<p><?=rupiah($p["harga"])?></p>
+								</td>
+								<td class="cart_price">
+									<p><?=$p['ukuran']?></p>
+								</td>
+								<td class="cart_quantity">
+									<div class="cart_quantity_button">
+										<input class="cart_quantity_input" type="text" readonly name="quantity" value="<?=$p['kuantitas']?>" autocomplete="off" size="2">
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price"><?=rupiah($p['harga_total'])?></p>
+								</td>
+								<?php if($p['status'] === 'belum dibayar'){?>
+									<td class="">
+										<a class="btn btn-danger" href="<?=base_url("Pesanan/delete/")?><?=$p['kode_pesanan']?>"><i class="fa fa-times"></i> Batal</a>
+										<a class="btn btn-success" href="<?=base_url("Web/checkout/")?><?=$p['kode_pesanan']?>"><i class="fa fa-check"></i> Beli</a>
+									</td>
+								<?php }else if($p['status'] === 'belum diverifikasi'){ ?>
+									<td>
+										<small class="btn btn-warning">Menunggu Verifikasi</small>
+									</td>
+								<?php }else if($p['status'] === 'dibayar'){ ?>
+									<td>
+										<small class="btn btn-primary">Pesanan sedang diproses</small>
+									</td>
+								<?php }else if($p['status'] === 'selesai'){ ?>
+									<td>
+										<small class="btn btn-success">Pesanan telah kami kirim. <br> trimakasih telah memilih layanan kami</small>
+									</td>
+								<?php } ?>
+							</tr>
+						<?php endforeach; ?>
+					<?php }else{ ?>
+						<tr>
+							<td colspan="6" class="text-center"> Anda tidak memiliki barang dikeranjang </td>
+						</tr>
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>

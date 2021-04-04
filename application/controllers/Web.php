@@ -59,14 +59,24 @@ class Web extends CI_Controller {
 		$this->load->view('web/home/script');
 	}
 
-	public function checkout() {
+	public function checkout($kodePesanan = null) {
 		if (!$this->session->userdata("pelanggan_logged")) {
 			$this->session->set_flashdata("err", "anda harus login terlebih dahulu");
 			return redirect("web/login");
 		}
 
+		if(!$kodePesanan) redirect($_SERVER['HTTP_REFERER']);
+
+		$pesanan = $this->PesananModel->find($this->session->userdata('kode_pelanggan'),"'belum dibayar'",$kodePesanan);
+        if($pesanan->num_rows() > 0){
+			$data['pesanan'] = $pesanan->result_array()[0];
+			
+		}else{
+			$this->session->set_flashdata("err","anda tidak punya barnag untuk di checkout");
+			redirect($_SERVER['HTTP_REFERER']);
+		}
         $this->load->view("web/layout/header");
-        $this->load->view("web/checkout/index");
+        $this->load->view("web/checkout/index",$data);
         $this->load->view("web/layout/footer");
 
   
@@ -81,13 +91,12 @@ class Web extends CI_Controller {
 		$pesanan = $this->PesananModel->find($this->session->userdata('kode_pelanggan'));
 
 		if($pesanan->num_rows() > 0){
-			$data['pesanan'] = $pesanan->result_array()[0];
+			$data['pesanan'] = $pesanan->result_array();
+			
 		}else{
 			$data['pesanan'] = null;
 		}
-		$data['produk'] = $this->ProdukModel
-		->find(['kode_produk' => $data['pesanan']['kode_produk']])
-		->result_array()[0];
+		
 		
  		$this->load->view("web/layout/header");
 		$this->load->view("web/cart/index",$data);
