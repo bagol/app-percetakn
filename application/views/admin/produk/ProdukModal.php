@@ -70,10 +70,13 @@
                             <div class="col col-sm-2">
                                 <Label>Bahan</Label>
                             </div>
-                            <div class="col col-sm-4">
+                            <div class="col col-sm-3">
                                 <input type="text" name="nama_bahan[]" placeholder="Jenis..." class="form-control">
                             </div>
-                            <div class="col col-sm-4">
+                            <div class="col col-sm-2">
+                                <input type="text" name="berat[]" placeholder="Berat/grm" class="form-control">
+                            </div>
+                            <div class="col col-sm-3">
                                 <input type="number" name="harga[]" placeholder="Harga..." class="form-control">
                             </div>
                             <div class="col col-sm-2">
@@ -102,10 +105,13 @@ const item = `
         <div class="col col-sm-2">
             <Label>Bahan</Label>
         </div>
-        <div class="col col-sm-4">
+        <div class="col col-sm-3">
             <input type="text" name="nama_bahan[]" placeholder="Jenis..." class="form-control">
         </div>
-        <div class="col col-sm-4">
+        <div class="col col-sm-2">
+            <input type="text" name="berat[]" placeholder="Berat/grm" class="form-control">
+        </div>
+        <div class="col col-sm-3">
             <input type="number" name="harga[]" placeholder="Harga..." class="form-control">
         </div>
         <div class="col col-sm-2">

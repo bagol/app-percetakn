@@ -42,6 +42,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Jenis Bahan</th>
+                                            <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Akasi</th>
                                         </tr>
@@ -55,6 +56,7 @@
                                         <tr>
                                             <td><?=$no++?></td>
                                             <td class="py-2"><?=$b['bahan']?></td>
+                                            <td><?=$b['berat']?> grm</td>
                                             <td><?=$b['harga']?></td>
                                             <td><a href="<?=base_url("Produk/deleteBahan/")?><?=$b['kode_bahan']?>"
                                                     class="btn btn-danger"><i class="fa fa-close"></i></a></td>

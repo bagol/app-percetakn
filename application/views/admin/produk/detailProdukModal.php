@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<!-- modal Hapus -->
+<!-- modal Tambah Bahan -->
 <div class="modal fade" id="addBahan" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -43,11 +43,19 @@
                         </div>
                     </div>
                     <div class="row form-group">
+                        <div class="col col-md-3"><label for="bahan" class=" form-control-label">Berat Bahan</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="number" min="1" id="bahan" name="berat" placeholder="Berat bahan per gram"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
                         <div class="col col-md-3"><label for="harga" class=" form-control-label">Harga Bahan</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="number" id="harga" name="harga" placeholder="Harga Bahan..."
-                                class="form-control">
+                                class="form-control" required>
                         </div>
                     </div>
                 </div>
