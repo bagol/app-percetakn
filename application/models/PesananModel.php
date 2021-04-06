@@ -18,7 +18,7 @@ class PesananModel extends CI_Model{
         	return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pelanggan =".$kode_pelanggan);
         }
 
-        return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pesanan =".$kodePesanan." and a.kode_pelanggan =".$kode_pelanggan." and a.status=".$status);
+        return $this->db->query("SELECT a.*,a.berat as total_berat,b.nama_produk,b.kode_produk,b.deskripsi,c.* FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pesanan =".$kodePesanan." and a.kode_pelanggan =".$kode_pelanggan." and a.status=".$status);
 
     }
 

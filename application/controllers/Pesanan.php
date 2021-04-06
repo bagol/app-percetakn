@@ -55,4 +55,8 @@ class Pesanan extends CI_Controller
         
         return false;
     }
+
+    function beli(){
+        echo json_encode($this->input->post());
+    }
 }

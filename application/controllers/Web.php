@@ -75,6 +75,7 @@ class Web extends CI_Controller {
 			$this->session->set_flashdata("err","anda tidak punya barnag untuk di checkout");
 			redirect($_SERVER['HTTP_REFERER']);
 		}
+		
         $this->load->view("web/layout/header");
         $this->load->view("web/checkout/index",$data);
         $this->load->view("web/layout/footer");
@@ -103,4 +104,5 @@ class Web extends CI_Controller {
 		$this->load->view("web/layout/footer");
 
 	}
+
 }
