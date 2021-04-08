@@ -85,7 +85,7 @@
                                 </li>
                                 <?php if ($this->session->userdata('pelanggan_logged')) {?>
                                     <li>
-                                        <a href=""><i class="fa fa-user"></i> Account</a>
+                                        <a href="<?=base_url("Web/acount")?>"><i class="fa fa-user"></i> Account</a>
                                     </li>
                                     <li>
                                         <a href="<?=base_url("Auth/logout_pelanggan")?>"><i class="fa fa-unlock"></i> Logout</a>

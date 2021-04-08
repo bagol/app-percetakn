@@ -105,4 +105,33 @@ class Web extends CI_Controller {
 
 	}
 
+	public function acount(){
+		if (!$this->session->userdata("pelanggan_logged")) {
+			$this->session->set_flashdata("err", "anda harus login terlebih dahulu");
+			return redirect("web/login");
+		}
+		$this->load->model("PelangganDetailModel");
+		$userDetail = $this->PelangganDetailModel->find(["kode_pelanggan" => $this->session->userdata("kode_pelanggan")]);
+		if(!$userDetail){
+			$this->session->set_userdata("err","tidak ada data user yang diminta");
+		}
+		if($userDetail->num_rows() < 1){
+			$data['user'] = [
+				"no_tlpn" => "",
+				"gambar" => "default.png",
+				"provinsi" => 0,
+				"kota" => 0,
+				"kecamatan" => "",
+				"kelurahan" => "",
+				"kode_pos" => "",
+				"alamat" => ""
+			]; 
+		}else{
+			$data['user'] = $userDetail->result_array();
+		}
+		$this->load->view("web/layout/header");
+		$this->load->view("web/acount/index",$data);
+		$this->load->view("web/layout/footer");
+	}
+
 }

@@ -196,12 +196,11 @@
           this.getCity(this.provinceSelected);
         },
         mounted(){
-          
           this.getEkpedisi(this.citySelected,this.weight);
         },
         watch:{
           provinceSelected(){
-            // this.getCity(this.provinceSelected);
+             this.getCity(this.provinceSelected);
           },
           citySelected(){
             this.getEkpedisi(this.citySelected,this.weight)
