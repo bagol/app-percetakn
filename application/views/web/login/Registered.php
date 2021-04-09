@@ -4,7 +4,7 @@
 			<div class="alert alert-success" role="alert">
 				<strong>Pendaftaran Berhashil</strong>
 				<br>
-				<p><?=$this->session->flashdata("scc")?>.Silahkan Login</p>
+				<p><?=$this->session->flashdata("scc")?></p>
 			</div>
 		<?php } else {?>
 			<div class="alert alert-danger" role="alert">

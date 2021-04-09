@@ -15,7 +15,7 @@ class PesananModel extends CI_Model{
     	if(!$kode_pelanggan) return false;
     	// mengambil data spesifik sesuai nilai where yang ditentukan
     	if($kodePesanan == null){
-        	return $this->db->query("SELECT * FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pelanggan =".$kode_pelanggan);
+        	return $this->db->query("SELECT a.*,a.berat as total_berat,b.nama_produk,b.kode_produk,b.deskripsi,c.* FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pelanggan =".$kode_pelanggan);
         }
 
         return $this->db->query("SELECT a.*,a.berat as total_berat,b.nama_produk,b.kode_produk,b.deskripsi,c.* FROM pesanan a join produk b on a.kode_produk=b.kode_produk join produk_bahan c on a.kode_bahan=c.kode_bahan and a.kode_pesanan =".$kodePesanan." and a.kode_pelanggan =".$kode_pelanggan." and a.status=".$status);
@@ -47,5 +47,9 @@ class PesananModel extends CI_Model{
 
     	//jika salah satu dari dua parameter kosong kembalikan nilai false
     	return false;
+    }
+
+    function getPesananBukti(){
+        return $this->ddb->query("SELECT * FROM pesanan a join bukti_pembayaran b on a.kode_pesanan=b.kode_pesanan and a.status = 'di bayar'");
     }
 }

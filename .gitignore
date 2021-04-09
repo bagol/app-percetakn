@@ -32,4 +32,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 contributing.md
 assets/images/produk
 
-application/controllers/CurlRajaOngkir.php
+#application/controllers/CurlRajaOngkir.php

@@ -5,6 +5,7 @@ class Pesanan extends CI_Controller
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("PesananModel");
+        $this->load->helper("rupiah");
 	}
     function create()
     {
@@ -19,7 +20,7 @@ class Pesanan extends CI_Controller
         	"kode_produk" => $this->input->post("kode_produk"),
             "kode_bahan" => $this->input->post("bahan"),
         	"kode_pelanggan" => $this->session->userdata("kode_pelanggan"),
-        	"status" => 'memesan',
+        	"status" => 'di pilih',
         	"tanggal" =>  date("Y-m-d"),
             "ukuran" => $this->input->post("ukuran"),
         	"kuantitas" => $this->input->post("kuantitas"),
@@ -56,7 +57,72 @@ class Pesanan extends CI_Controller
         return false;
     }
 
-    function beli(){
-        echo json_encode($this->input->post());
+    function beli($kode_pesanan){
+        $pengiriman = [
+            "kota" => $this->input->post("kota"),
+            "alamat" => "Kec ".$this->input->post("kecamatan").
+                        " Kel ".$this->input->post("kelurahan").
+                        " ".$this->input->post("alamat").
+                        " ".$this->input->post("kode_pos"),
+            "berat" => $this->input->post("berat"),
+            "kurir" => $this->input->post("kurir").' ('.rupiah($this->input->post("pengiriman")).')',
+            "no_telpon" => $this->input->post("no_tlpn"),
+            "kode_pesanan" => $kode_pesanan
+        ];
+        $updatePesanan = [
+            "harga_total" => $this->input->post("harga_total"),
+            "status" => "di checkout"
+        ];
+
+        // load model pengiriman
+        $this->load->model("PengirimanModel");
+
+        if($this->PesananModel->update($updatePesanan,["kode_pesanan" => $kode_pesanan])){
+            if($this->PengirimanModel->store($pengiriman)){
+                echo "berhasil chcekou";
+            }else{
+                echo "gagal terjadi kesalahan saat menyimpan data pengiriman";
+            }
+        }else{
+            echo "terjadi kesalahan saat menyimpan perubahan pada table Pesanan";
+        }
+    }
+
+    function uploadBukti($kodePesanan){
+        if(!$_FILES['bukti']['name']){
+            $this->session->flashdata("err","Bukti harus diupload");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        $data = [
+            "kode_pelanggan" => $this->session->userdata("kode_pelanggan"),
+            "kode_pesanan" => $kodePesanan,
+            "atas_nama" => $this->input->post("nama"),
+            "bukti" => $this->uploadFileBukti()
+        ];
+
+        $this->load->model("BuktiModel");
+        if($this->BuktiModel->store($data)){
+            $this->PesananModel->update(["status" => "di bayar"],["kode_pesanan" => $kodePesanan]);
+            $this->session->set_flashdata("scc","bukti brhasil diupload silahkan tunggu verifikasi dari admin");
+            redirect("web/cart");
+        }else{
+             $this->session->flashdata("err","terjadi kesalahan");
+            redirect($_SERVER['HTTP_REFERER']);   
+        }
+    }
+
+    function uploadFileBukti(){
+        $config['upload_path'] = './assets/images/bukti/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['encrypt_name'] = true;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('bukti')) {
+            return $this->upload->data("file_name");
+        }
+        
+        return false;
     }
 }

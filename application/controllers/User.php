@@ -14,9 +14,7 @@ class User extends CI_Controller {
 			"kode_pelanggan" => "",
 			"nama_pelanggan" => $this->input->post("nama_pelanggan", true),
 			"email" => $this->input->post("email", true),
-			"telepon" => '', //$this->input->post("telepon",true),
-			"katasandi" => $this->input->post("katasandi", true),
-			"alamat" => '', //$this->input->post("alamat",true)
+			"katasandi" => password_hash($this->input->post("katasandi", true), PASSWORD_DEFAULT,["const" => 12]),
 		];
 		if ($this->PelangganModel->store($data)) {
 			$this->session->set_flashdata("scc", " Registerasi berhsil silahkan login");
@@ -44,24 +42,32 @@ class User extends CI_Controller {
 		}
 		
 		$data = [
-				"kode_detail" => "",
+				
 				"kode_pelanggan" => $this->input->post("kode_pelanggan"),
 				"no_tlpn" => $this->input->post("no_tlpn"),
 				"provinsi" => $this->input->post("provinsi"),
 				"kota" => $this->input->post("kota"),
 				"kecamatan" => $this->input->post("kecamatan"),
 				"kelurahan" => $this->input->post("kelurahan"),
-				"kode_post" => $this->input->post("kode_pos"),
+				"kode_pos" => $this->input->post("kode_pos"),
 				"alamat" => $this->input->post("alamat"),
 				"kode_pelanggan" => $this->input->post("kode_pelanggan"),
 			];
 		if($_FILES['gambar']["name"] !== ""){
 			$data["gambar"] = $this->uploadGambar();
 		}
-
-		if($this->PelangganDetailModel->store($data)){
-			$this->session->set_flashdata("scc","Terimakasih telah Melengkapi Profle Sekarang anda lebih mudah dalam memesan produk kami")
-			redirect($_SERVER['HTTP_REFERER']);
+		$where = ['kode_pelanggan' => $this->session->userdata('kode_pelanggan')];
+		$checkProfile = $this->PelangganDetailModel->find($where)->num_rows();
+		if($checkProfile){
+			if($this->PelangganDetailModel->update($where,$data)){
+				$this->session->set_flashdata("scc","data berhasil di ubah");
+				redirect($_SERVER['HTTP_REFERER']);
+			}
+		}else{
+			if($this->PelangganDetailModel->store($data)){
+				$this->session->set_flashdata("scc","Terimakasih telah Melengkapi Profle Sekarang anda lebih mudah dalam memesan produk kami");
+				redirect($_SERVER['HTTP_REFERER']);
+			}
 		}
 	}
 

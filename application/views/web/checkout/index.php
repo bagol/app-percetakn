@@ -20,7 +20,7 @@
             }
         </style>
         <div class="shopper-informations" id="app">
-            <form action="<?=base_url("Pesanan/beli")?>" method="post">
+            <form action="<?=base_url("Pesanan/beli/")?><?=$pesanan['kode_pesanan']?>" method="post">
               <div class="row">
                   <div class="col-sm-4">
                       <div class="shopper-info">
@@ -28,7 +28,7 @@
                           <div class="row">
                               <div class="col-sm-6">
                                    <figure>
-                                      <img src="<?=base_url('assets/images/pesanan/')?><?=$pesanan['file']?>" alt="gambar pesanan<?= $pesanan['deskripsi'] ?>" width="100%">
+                                      <img src="<?=base_url('assets/images/pesanan/')?><?=cekPdf($pesanan['file'])?>" alt="gambar pesanan<?= $pesanan['deskripsi'] ?>" width="100%">
                                   </figure>
                               </div>
                               <div class="col-sm-6" style="margin-top: 10px;">
@@ -72,22 +72,24 @@
                                      <option v-for="p in provinces" :value="p.province_id" :data-provinsi="p.province" :key="p.province_id">{{p.province}}</option>
                                   </select>
                                   <label for="city">Kota</label> 
-                                  <select name="" id="city" class="form-control" v-model="citySelected" @change="handleCity">
+                                  <select name="kota" id="city" class="form-control" v-model="citySelected" @change="handleCity">
                                     <option value="0">Pilih Kota</option>
                                       <option v-for="c in city" :value="c.city_id" :data-kota="c.nama_kota">{{ c.type+' - '+c.nama_kota}}</option>
                                   </select>
                                   <label for="kecamatan">Kecamatan</label> 
-                                  <input type="text" name="kecamatan" class="form-control">
+                                  <input type="text" v-model="kecamatan" name="kecamatan" class="form-control">
                                   <label for="kelurahan">Kelurahan</label> 
-                                  <input type="text" name="kelurahan" class="form-control">
+                                  <input type="text" v-model="kelurahan" name="kelurahan" class="form-control">
                                   <label for="kode-pos">Kode Pos</label>
-                                  <input type="text" name="kode-pos" id="kode-pos" placeholder="No Kode Post" class="form-control" >
+                                  <input type="text" v-model="kode_pos" name="kode_pos" id="kode-pos" placeholder="No Kode Post" class="form-control" >
                            </div>
                            <div class="form-two">
                                  <label for="alamat">Alamat</label>
-                                 <textarea cols="30" rows="10" class="form-control" required></textarea>
+                                 <textarea cols="30" rows="7" class="form-control" name="alamat" required>{{alamat}}</textarea>
+                                 <label for="no_tlpn">No Telpon</label>
+                                 <input type="text" v-model="no_tlpn" name="no_tlpn" id="no_tlpn" placeholder="No Kode Post" class="form-control" >
                                  <label for="Kurir">Jasa Pengiriman</label>
-                                 <select name="Pengiriman" class="form-control" v-model="ekspedisiSelected" @change="handleChange">
+                                 <select name="pengiriman" class="form-control" v-model="ekspedisiSelected" @change="handleChange">
                                       <option value="0">Pilih Jasa Pengiriman</option>
                                       <option v-for="e in ekspedisi" :value="e.cost[0].value" :data-service="e.service" :data-etd="e.cost[0].etd">{{ `JNE (${e.service}) - ${e.cost[0].value} (${e.cost[0].etd} Hari)` }}</option>
                                  </select>
@@ -125,7 +127,7 @@
                       </table>
                       <input type="hidden" name="harga_total" :value="hargaTotal">
                       <input type="hidden" name="berat" :value="weight">
-                      <input type="hidden" name="alamat" value="">
+                      <input type="hidden" name="kurir" :value="ekspedisiService">
                       <button :disabled="ekspedisiSelected < 1" type="submit" class="btn btn-success" style="width: 100%;">Bayar</button>
                     </div>
                   </div>          
@@ -141,20 +143,24 @@
     const vm = new Vue({
         el:"#app",
         data: {
-          city: [],
-          provinces: [],
-          citySelected:115,
-          provinceSelected:9,
-          ekspedisi:0,
-          weight: `<?=$pesanan['total_berat']?>`,
-          ekspedisiSelected:0,
-          ekspedisiService:"",
-          hargaPengiriman:0,
-          hargaTotal: 0,
-          hargaBarang: parseInt(`<?=$pesanan['harga_total']?>`),
-          kota:"",
+          city: [], //kota per provinsi
+          provinces: [],  //provinsi se indonesia
+          citySelected:`<?=$user['kota']?>`, //kota yang dipilih
+          provinceSelected:`<?=$user['provinsi']?>`, //provinsi yang dipilih
+          ekspedisi:0, //jasa kirim 
+          weight: `<?=$pesanan['total_berat']?>`, //berat produk yang dibeli
+          ekspedisiSelected:0, // 
+          ekspedisiService:"", //layanan expedisi yang dipilih
+          hargaPengiriman:0, // harga pengiriman produk
+          hargaTotal: 0, //harga total dari produk yang dibeli
+          hargaBarang: parseInt(`<?=$pesanan['harga_total']?>`), // harga barang sebelum ditambah harga total
+          kota:"", 
           propinsi:"",
-          alamat:""
+          alamat:`<?=$user['alamat']?>`,
+          kelurahan:`<?=$user['kelurahan']?>`,
+          kecamatan: `<?=$user['kecamatan']?>`,
+          kode_pos: `<?=$user['kode_pos']?>`,
+          no_tlpn: `<?=$user['no_tlpn']?>`,
         },
         methods: {
           async getProvince(){
@@ -176,7 +182,6 @@
           },
           handleCity(e){
             this.kota = e.target.options[e.target.selectedIndex].dataset.kota;
-            console.log(this.kota);
           }
           ,
           async getEkpedisi(destination,weight){
@@ -198,15 +203,19 @@
         mounted(){
           this.getEkpedisi(this.citySelected,this.weight);
         },
+        created(){
+          
+        },
         watch:{
           provinceSelected(){
              this.getCity(this.provinceSelected);
           },
           citySelected(){
+            console.log(this.citySelected.id)
             this.getEkpedisi(this.citySelected,this.weight)
           },
           ekspedisiSelected(){
-            this.alamat = this.provinsi + " " + this.kota;
+            //this.alamat = this.provinsi + " " + this.kota;
             this.hargaPengiriman = this.ekspedisiSelected;
             this.hargaTotal = this.hargaBarang + this.hargaPengiriman;
           }

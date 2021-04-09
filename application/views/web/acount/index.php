@@ -38,13 +38,13 @@
 				<div class="col col-md-5">
 					<div class="panel panel-default">
 					  <div class="panel-body text-center">
-					    <img :src="gambar" alt="" width="300">
+					    <img :src="gambar" alt="Photo profile" width="300">
 					  </div>
 					  <div class="panel-footer">
 					  
 					  	<label for="gambar" class="btn btn-sm btn-success" style="width: 100%;">
 					  		Ganti Foto Profile
-					  		<input type="file" id="gambar" name="gambar" style="display:none;">
+					  		<input type="file" id="gambar" name="gambar" :disabled="disabled" @change="changeProfile" style="display:none;">
 					  	</label>
 					  </div>
 					</div>
@@ -53,18 +53,18 @@
 					<table class="table">
 						<tr>
 							<th>Nama Pelanggan</th>
-							<td><input type="text" value="<?=$this->session->userdata("nama_pelanggan") ?>" name="nama_pelanggan" class="form-control"></td>
+							<td><input type="text" value="<?=$this->session->userdata("nama_pelanggan") ?>" :disabled="disabled" name="nama_pelanggan" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>No Telepon</th>
 							<td>
-								<input type="text" class="form-control" v-model="no_tlpn" name="no_tlpn" placeholder="Masukan No telpon anda" required>
+								<input type="text" class="form-control" v-model="no_tlpn" :disabled="disabled" name="no_tlpn" placeholder="Masukan No telpon anda" required>
 							</td>
 						</tr>
 						<tr>
 							<th>Provinsi</th>
 							<td>
-								<select name="provinsi" class="form-control" v-model="provinsi" >
+								<select name="provinsi" class="form-control" :disabled="disabled" v-model="provinsi" >
 									<option value="0">Pilih Provinsi</option>
 									<option v-for="p in provinces" :value="p.province_id">{{p.province}}</option>
 								</select>
@@ -73,7 +73,7 @@
 						<tr>
 							<th>Kota</th>
 							<td>
-								<select name="kota" class="form-control" v-model="kota" >
+								<select name="kota" class="form-control" :disabled="disabled" v-model="kota" >
 									<option value="0">Pilih Kota</option>
 									<option v-for="c in city" :value="c.city_id">{{c.type}} - {{c.nama_kota}}</option>
 								</select>
@@ -82,32 +82,34 @@
 						<tr>
 							<th>Kecamatan</th>
 							<td>
-								<input type="text" class="form-control" v-model="kecamatan" name="kecamatan" placeholder="Masukan Nama Kecamatan Anda" required>
+								<input type="text" class="form-control" :disabled="disabled" v-model="kecamatan" name="kecamatan" placeholder="Masukan Nama Kecamatan Anda" required>
 							</td>
 						</tr>
 						<tr>
 							<th>Kelurahan</th>
 							<td>
-								<input type="text" class="form-control" v-model="kelurahan" name="kelurahan" placeholder="Masukan Nama Kelurahan anda" required>
+								<input type="text" class="form-control" :disabled="disabled" v-model="kelurahan" name="kelurahan" placeholder="Masukan Nama Kelurahan anda" required>
 							</td>
 						</tr>
 						<tr>
 							<th>Kode Pos</th>
 							<td>
-								<input type="text" class="form-control" v-model="kode_pos" name="kode_pos" placeholder="Masukan Kode Pos anda" required>
+								<input type="text" class="form-control" :disabled="disabled" v-model="kode_pos" name="kode_pos" placeholder="Masukan Kode Pos anda" required>
 							</td>
 						</tr>
 						<tr>
 							<th>Alamat</th>
 							<td>
-								<input type="text" class="form-control" v-model="alamat" name="alamat" placeholder="Masukan Alamat Anda" required>
+								<input type="text" class="form-control" :disabled="disabled" v-model="alamat" name="alamat" placeholder="Masukan Alamat Anda" required>
 							</td>
 						</tr>
 						<tr>
-							<td></td>
 							<td>
-								<input type="hidden" name="kode_pelanggan" value="<?=$this->session->userdata('kode_pelanggan')?>">
-								<button type="submit" class="btn btn-primary" style="float: right;margin-top: 0;width: 100%;">Simpan</button>
+								<button type="submit" @click.prevent="handleUpdate" class="btn btn-info" style="float: right;margin-top: 0;width: 100%;">{{btnUpdate}}</button>
+							</td>
+							<td>
+								<input type="hidden" name="kode_pelanggan"  value="<?=$this->session->userdata('kode_pelanggan')?>">
+								<button type="submit" class="btn btn-primary" :disabled="disabled" style="float: right;margin-top: 0;width: 100%;">Simpan</button>
 							</td>
 						</tr>
 					</table>
@@ -115,6 +117,7 @@
 			</form>
 		</div>
 	</div>
+	<?= json_encode($this->session->flashdata()) ?>
 </section>
 
 <script src="<?=base_url("assets/js/vue.js")?>"></script>
@@ -122,7 +125,7 @@
 	const vm = new Vue({
 		el:"#app",
 		data:{
-			gambar: "",
+			gambar: `<?=$user['gambar']?>`,
 			provinsi: `<?=$user['provinsi']?>`,
 			provinces:[], // data provinsi seindonesia
 			kota: `<?=$user['kota']?>`,
@@ -131,10 +134,13 @@
 			kelurahan: `<?=$user['kelurahan']?>`,
 			kode_pos: `<?=$user['kode_pos']?>`,
 			alamat: `<?=$user['alamat']?>`,
-			no_tlpn: "<?=$user['no_tlpn']?>"
+			no_tlpn: "<?=$user['no_tlpn']?>",
+			disabled:true,
+			btnUpdate:"update"
 		},
 		updated(){
 			this.getCity(this.provinsi);
+			// this.handleUpdate();
 		},
 		mounted(){
 			this.getProvinsi();
@@ -153,6 +159,21 @@
 				const city = await fetch(`<?=base_url("CurlRajaOngkir/city/")?>${this.provinsi}`);
 				const response = await city.json();
 				this.city = response;
+			},
+			changeProfile(e){
+				const reader = new FileReader();
+				const result = URL.createObjectURL(e.target.files[0]);
+				console.log(result);	//e.taget.files[0]e.taget.files[0]	reader.readAsDataURL()		//this.gambar = e.target.value;
+				this.gambar = result;
+			},
+			handleUpdate(){
+				if(this.btnUpdate == "update"){
+					this.btnUpdate = "batal";
+					this.disabled= false;
+				}else{
+					this.btnUpdate ="update";
+					this.disabled = true;
+				}
 			}
 		},
 		watch: {

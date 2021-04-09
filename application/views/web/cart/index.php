@@ -24,7 +24,7 @@
 						<?php foreach ($pesanan as $p): ?>
 							<tr>
 								<td class="cart_product text-center">
-									<a href=""><img src="<?=base_url("assets/images/pesanan/")?><?=$p['file']?>" alt="Gambar Produk" style="width: 100px;"></a>
+									<a href=""><img src="<?=base_url("assets/images/pesanan/")?><?=cekPdf($p['file'])?>" alt="Gambar Produk" style="width: 100px;"></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href=""><?=$p['nama_produk']?></a></h4>
@@ -44,18 +44,27 @@
 								<td class="cart_total">
 									<p class="cart_total_price"><?=rupiah($p['harga_total'])?></p>
 								</td>
-								<?php if($p['status'] === 'belum dibayar'){?>
+								<?php if($p['status'] === 'di pilih'){?>
 									<td class="">
 										<a class="btn btn-danger" href="<?=base_url("Pesanan/delete/")?><?=$p['kode_pesanan']?>"><i class="fa fa-times"></i> Batal</a>
-										<a class="btn btn-success" href="<?=base_url("Web/checkout/")?><?=$p['kode_pesanan']?>"><i class="fa fa-check"></i> Beli</a>
+										<a class="btn btn-success" href="<?=base_url("Web/checkout/")?><?=$p['kode_pesanan']?>"><i class="fa fa-check"></i> Periksa</a>
 									</td>
-								<?php }else if($p['status'] === 'belum diverifikasi'){ ?>
+								<?php }else if($p['status'] === 'di checkout'){ ?>
 									<td>
-										<small class="btn btn-warning">Menunggu Verifikasi</small>
+										<a class="btn btn-danger" href="">
+											<i class="fa fa-times"></i> hapus
+										</a>
+										<a class="btn btn-success" href="<?=base_url("web/pembayaran/")?><?=$p['kode_pesanan']?>">
+											<i class="fa fa-check"></i> Bayar
+										</a>
 									</td>
-								<?php }else if($p['status'] === 'dibayar'){ ?>
+								<?php }else if($p['status'] === 'di bayar'){ ?>
 									<td>
-										<small class="btn btn-primary">Pesanan sedang diproses</small>
+										<small class="btn btn-primary">Menunggu Verifikasi admin</small>
+									</td>
+								<?php }else if($p['status'] === 'diproses'){ ?>
+									<td>
+										<small class="btn btn-primary">Pesanan Sedang diprosess</small>
 									</td>
 								<?php }else if($p['status'] === 'selesai'){ ?>
 									<td>
@@ -74,5 +83,6 @@
 		</div>
 	</div>
 </section> <!--/#cart_items-->
+
 
 	
