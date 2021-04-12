@@ -18,8 +18,8 @@
       <li><i class="menu-icon fa fa-check-circle-o"></i><a href="<?=base_url("admin/daftarPesanan")?>">Daftar Pesanan</a></li>
     </ul>
   </li>
-  <li>
+  <!-- <li>
     <a href="widgets.html"> <i class="menu-icon fa fa-file"></i>Laporan</a>
-  </li>
+  </li> -->
 
 </ul>
