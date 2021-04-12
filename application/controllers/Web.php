@@ -176,7 +176,7 @@ class Web extends CI_Controller {
 
 		$this->load->view("web/layout/header");
 		$this->load->view("web/pembayaran/index",$data);
-		$this->load->view("web/layout/header");
+		$this->load->view("web/layout/footer");
 	}
 
 }

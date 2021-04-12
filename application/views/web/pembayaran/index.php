@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col col-md-6">
 				<figure>
-					<img src="<?=base_url("assets/images/pesanan/")?><?=$pesanan['file']?>" alt="Gambar Pesanan" width="100%">
+					<img src="<?=base_url("assets/images/pesanan/")?><?=cekPdf($pesanan['file'])?>" style="max-height:300px;" alt="Gambar Pesanan" width="100%">
 					<figcaption><b><?=$pesanan['nama_produk']?></b></figcaption>
 				</figure>
 			</div>
@@ -52,11 +52,11 @@
 	</div>
 </section>
 
-<section id="form-pembayaran">
-	<div class="container">
+<section id="form-pembayaran" style="margin-bottom: 10px: ">
+	<div class="container" style="margin-bottom: 20px">
 		<div class="row">
 			<form action="<?=base_url('Pesanan/uploadBukti/')?><?=$pesanan['kode_pesanan']?>" method="post" enctype="multipart/form-data">
-				<div class="col-md-4 col-md-offset-4" style="border: 1px #ccc solid; padding: 20px">
+				<div class="col-md-6 col-md-offset-6" style="border: 1px #ccc solid; padding: 20px">
 					<label for="nama">Nama Pengirim</label>
 					<input type="text" name="nama" id="nama" class="form-control">
 					<label >Upload Bukti Transfer</label><br>

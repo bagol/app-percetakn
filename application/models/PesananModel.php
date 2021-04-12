@@ -50,6 +50,10 @@ class PesananModel extends CI_Model{
     }
 
     function getPesananBukti(){
-        return $this->ddb->query("SELECT * FROM pesanan a join bukti_pembayaran b on a.kode_pesanan=b.kode_pesanan and a.status = 'di bayar'");
+        return $this->db->query("SELECT a.*,b.*,c.nama_pelanggan,d.nama_produk FROM pesanan a join bukti_pembayaran b on a.kode_pesanan=b.kode_pesanan join pelanggan c on a.kode_pelanggan=c.kode_pelanggan join produk d on a.kode_produk=d.kode_produk and a.status = 'di bayar'");
+    }
+
+    function getDetailPesanan($kodePesanan){
+        return $this->db->query("select a.*,b.nama_produk,c.*,d.*,e.nama_pelanggan from pesanan a join produk b on a.kode_produk=b.kode_produk join pengiriman c on a.kode_pesanan=c.kode_pesanan join bukti_pembayaran d on a.kode_pesanan=d.kode_pesanan join pelanggan e on a.kode_pelanggan=e.kode_pelanggan and a.kode_pesanan=".$kodePesanan);
     }
 }

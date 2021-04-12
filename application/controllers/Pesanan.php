@@ -79,7 +79,7 @@ class Pesanan extends CI_Controller
 
         if($this->PesananModel->update($updatePesanan,["kode_pesanan" => $kode_pesanan])){
             if($this->PengirimanModel->store($pengiriman)){
-                echo "berhasil chcekou";
+                redirect('web/cart');
             }else{
                 echo "gagal terjadi kesalahan saat menyimpan data pengiriman";
             }
