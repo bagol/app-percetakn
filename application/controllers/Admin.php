@@ -11,6 +11,9 @@ class Admin extends CI_Controller
         $this->load->helper("rupiah");
         $this->load->helper("PDF");
         $this->load->helper("kota");
+        if(!$this->session->userdata("logged")){
+            redirect("Auth/loginAdmin");
+        }
     }
 
     public function index()
@@ -87,4 +90,18 @@ class Admin extends CI_Controller
         $this->load->view("admin/pesanan/detail_pesanan",$data);
         $this->load->view("admin/layout/footer");
     }
+
+    public function daftarPesanan(){
+        $data['title'] = 'Daftar Pesanan';
+        $data['title2'] = 'Pesanan';
+        // load model pesanan
+        $this->load->model("PesananModel");
+        $daftarPesanan = $this->PesananModel->getDaftarPesanan()->result_array();
+        $data['daftarPesanan'] = $daftarPesanan;
+        $this->load->view("admin/layout/header",$data);
+        $this->load->view("admin/pesanan/daftar_pesanan",$data);
+        $this->load->view("admin/layout/footer");
+        $this->load->view("admin/pesanan/daftarPesananskript");
+    }
+    
 }

@@ -17,6 +17,7 @@
               </tr>
             </thead>
             <tbody>
+              <?php if($daftarPesanan){ ?>
              <?php $no=1; foreach ($daftarPesanan as $pesanan):?>
                 <tr>  
                   <td><?=$no++?></td>
@@ -32,7 +33,11 @@
                     <a class="btn btn-success " href="<?=base_url("admin/detail_pesanan/")?><?=$pesanan['kode_pesanan']?>"><i class="fa fa-eye"></i> Bukti</a>  
                   </td> 
                 </tr> 
-             <?php endforeach;?>
+             <?php endforeach; }else{?>
+              <tr>
+                <td colspan="5" class="text-center"> Tidak ada Pesnan masuk</td>
+              </tr>
+             <?php } ?>
             </tbody>
           </table>
         </div>
