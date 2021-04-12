@@ -4,6 +4,7 @@ class Auth extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model("PelangganModel");
+		$this->load->model("AdminModel");
 	}
 
 	public function index() {
@@ -46,7 +47,37 @@ class Auth extends CI_Controller {
 		redirect("web/login");
 	}
 
-	function generatePassword($pw) {
-		echo password_hash($pw, PASSWORD_DEFAULT, ['const' => 8]);
+	function loginAdmin(){
+		$this->load->view("admin/login");
+	}
+
+	function cekLogin(){
+		$where = ['surel' => $this->input->post("surel")];
+		$admin = $this->AdminModel->find($where);
+		if($admin->num_rows() > 0){
+			$admin = $admin->result_array()[0];
+			if(password_verify($this->input->post("password"), $admin['password'])){
+				$data = [	
+					"kode_admin" => $admin['kode_admin'],
+					"logged" => true
+				];
+				$this->session->set_userdata($data);
+				$this->session->set_flashdata("scc","selamat datang admin");
+				redirect("Admin");
+			}else{
+				$this->session->set_flashdata("err","Logigin Gagal password salah");
+				redirect("Auth/cekLogin");
+			}
+		}else{
+			$this->session->set_flashdata("err","Logigin Gagal email tidak ditemukan");
+				redirect("Auth/cekLogin");
+		}
+
+	}
+
+	function logOutAdmin(){
+		$this->session->unset_userdata("logged");
+		$this->session->sess_destroy();
+		redirect("Auth/loginAdmin");
 	}
 }

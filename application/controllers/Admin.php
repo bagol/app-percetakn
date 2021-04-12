@@ -11,6 +11,9 @@ class Admin extends CI_Controller
         $this->load->helper("rupiah");
         $this->load->helper("PDF");
         $this->load->helper("kota");
+        if(!$this->session->userdata("logged")){
+            redirect("Auth/loginAdmin");
+        }
     }
 
     public function index()
@@ -100,4 +103,5 @@ class Admin extends CI_Controller
         $this->load->view("admin/layout/footer");
         $this->load->view("admin/pesanan/daftarPesananskript");
     }
+    
 }
