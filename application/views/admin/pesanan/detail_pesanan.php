@@ -91,7 +91,7 @@
 							<div class="card">
 								<div class="card-body">
 									<figure class="figure">
-									  <img src="<?=base_url('assets/images/bukti/')?><?=cekPdf($detailPesanan['bukti'])?>" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+									  <img src="<?=base_url('assets/images/bukti/')?><?=cekPdf($detailPesanan['bukti'])?>" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure." width="500">
 									  <figcaption class="figure-caption">Bukti Pembayaran</figcaption>
 									</figure>
 									<table class="table" id="detail_pesanan">
@@ -106,7 +106,7 @@
 									</table>
 								</div>
 								<div class="card-footer d-flex justify-content-end">
-									<a href="" class="btn btn-success mr-2">Verifikasi</a>
+									<a href="<?=base_url("Pesanan/verifikasiPesanan/")?><?=$detailPesanan['kode_pesanan']?>" class="btn btn-success mr-2">Verifikasi</a>
 									<a href="" class="btn btn-danger">Tolak</a>
 								</div>
 							</div>

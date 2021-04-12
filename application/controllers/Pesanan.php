@@ -125,4 +125,22 @@ class Pesanan extends CI_Controller
         
         return false;
     }
+
+    // memverivikasi Pesanan dari Pelanggan
+    function verifikasiPesanan($kodePesanan){
+        $where= ["kode_pesanan" => $kodePesanan];
+        $data = ["status" => "di proses"];
+
+        if($this->PesananModel->update($data,$where)){
+            $this->session->set_flashdata("scc","Data Berhasil diverifikasi");
+            redirect("Admin/daftarPesanan");
+        }else{
+            $this->session->set_flashdata("err","Terjadi kesalahan saat verifikasi data");
+            redirect($_SERVER["HTTP_REFERER"]);
+
+        }
+    }
+
+    // menolak Pesanan dari pelanggan
+    function tolakPesanan($kodePesanan){}
 }
