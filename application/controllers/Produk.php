@@ -101,11 +101,6 @@ class Produk extends CI_Controller
             "kode_kategori" => $this->input->post("kategori", true),
             "gambar" => $this->uploadGambarProduk(),
         ];
-        $idProduk = $this->ProdukModel->new($produk);
-
-        for ($i = 0; $i < count($this->input->post("nama_bahan")); $i++) {
-            $this->addBahan($idProduk, $this->input->post("nama_bahan")[$i], $this->input->post("harga")[$i]);
-        }
 
         $this->session->set_flashdata("scc", "data Produk berhasil ditambahkan");
         redirect($_SERVER['HTTP_REFERER']);
@@ -147,12 +142,13 @@ class Produk extends CI_Controller
 
     // Akhir Pengentrol Produk
     // Bagian Pengontorl Bahan Produk
-    public function addBahan($kode_produk, $bahan, $harga)
+    public function addBahan($kode_produk, $berat, $bahan, $harga)
     {
         $data = [
             "kode_bahan" => "",
             "kode_produk" => $kode_produk,
             "bahan" => $bahan,
+            "berat" => $berat,
             "harga" => $harga,
         ];
 
@@ -172,6 +168,9 @@ class Produk extends CI_Controller
             "kode_bahan" => "",
             "kode_produk" =>$produk,
             "bahan" => $this->input->post("bahan"),
+            "lebar" => $this->input->post("lebar"),
+            "panjang" => $this->input->post("panjang"),
+            "berat" => $this->input->post("berat"),
             "harga" => $this->input->post("harga")
         ];
         if ($this->BahanModel->new($bahan)) {

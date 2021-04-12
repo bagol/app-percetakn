@@ -4,7 +4,7 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Card with switch</strong>
+        <strong class="card-title">Daftar Kategori</strong>
       </div>
       <div class="card-body">
         <div class="table-responsive ">

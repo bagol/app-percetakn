@@ -8,6 +8,9 @@ class Admin extends CI_Controller
         $this->load->model("BahanModel");
         $this->load->model("KategoriModel");
         $this->load->model("ProdukModel");
+        $this->load->helper("rupiah");
+        $this->load->helper("PDF");
+        $this->load->helper("kota");
     }
 
     public function index()
@@ -55,5 +58,33 @@ class Admin extends CI_Controller
         $this->load->view("admin/produk/detailProduk", $data);
         $this->load->view("admin/layout/footer");
         $this->load->view("admin/produk/detailProdukModal", $data);
+    }
+
+    public function pesanan(){
+        $data['title'] = 'Data Pesanan Masuk';
+        $data['title2'] = 'Pesanan';
+        // load model pesanan
+        $this->load->model("PesananModel");
+        $pesanan = $this->PesananModel->getPesananBukti()->result_array();
+        $data['daftarPesanan'] = $pesanan;
+        $this->load->view("admin/layout/header", $data);
+        $this->load->view("admin/pesanan/pesanan_masuk",$data);
+        $this->load->view("admin/layout/footer");;
+    }
+
+    public function detail_pesanan($kodePesanan){
+        $data['title'] = 'Detail Pesanan';
+        $data['title2'] = 'Pesanan';
+        // load model pesanan
+        $this->load->model("PesananModel");
+        $detail_pesanan = $this->PesananModel->getDetailPesanan($kodePesanan);
+        if($detail_pesanan->num_rows() < 1){
+            $this->session->set_flashdata("err","data pesanan tidak ditemukan");
+            redirect("admin");
+        }
+        $data['detailPesanan'] = $detail_pesanan->result_array()[0];
+        $this->load->view("admin/layout/header",$data);
+        $this->load->view("admin/pesanan/detail_pesanan",$data);
+        $this->load->view("admin/layout/footer");
     }
 }

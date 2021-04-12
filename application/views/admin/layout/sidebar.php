@@ -14,7 +14,7 @@
   <li class="menu-item-has-children dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Pesanan</a>
     <ul class="sub-menu children dropdown-menu">
-      <li><i class="menu-icon fa fa-cloud-download"></i><a href="">Pesanan Masuk</a></li>
+      <li><i class="menu-icon fa fa-cloud-download"></i><a href="<?=base_url("Admin/pesanan")?>">Pesanan Masuk</a></li>
       <li><i class="menu-icon fa fa-check-circle-o"></i><a href="">Verifikasi Pesanan</a></li>
     </ul>
   </li>

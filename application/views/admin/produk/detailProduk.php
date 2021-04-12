@@ -42,6 +42,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Jenis Bahan</th>
+                                            <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Akasi</th>
                                         </tr>
@@ -49,12 +50,13 @@
                                     <tbody>
                                         <?php if(count($bahan) < 1){?>
                                         <tr>
-                                            <td colspan="4" class="text-center text-danger">Tidak Ada Data</td>
+                                            <td colspan="5" class="text-center bg-dark text-white">Belum ada data bahan</td>
                                         </tr>
                                         <?php }else{ $no = 1; foreach($bahan as $b): ?>
                                         <tr>
                                             <td><?=$no++?></td>
                                             <td class="py-2"><?=$b['bahan']?></td>
+                                            <td><?=$b['berat']?> grm</td>
                                             <td><?=$b['harga']?></td>
                                             <td><a href="<?=base_url("Produk/deleteBahan/")?><?=$b['kode_bahan']?>"
                                                     class="btn btn-danger"><i class="fa fa-close"></i></a></td>
