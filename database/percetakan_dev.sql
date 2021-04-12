@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 12:01 AM
+-- Generation Time: Apr 12, 2021 at 07:49 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -35,6 +35,13 @@ CREATE TABLE `admin` (
   `password` varchar(72) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`kode_admin`, `nama_admin`, `surel`, `password`) VALUES
+(1, 'admin', 'admin@admin.com', '$2y$10$uGWqL5lnD6a.pIRt/mR6f.fV9uaT288jNCuflUkx66KnuGgNA2UVe');
+
 -- --------------------------------------------------------
 
 --
@@ -45,9 +52,43 @@ CREATE TABLE `bukti_pembayaran` (
   `kode_bukti` int(11) NOT NULL,
   `kode_pesanan` int(11) NOT NULL,
   `bukti` varchar(50) NOT NULL,
-  `atas_nama` int(11) NOT NULL,
+  `atas_nama` varchar(50) NOT NULL,
   `kode_pelanggan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bukti_pembayaran`
+--
+
+INSERT INTO `bukti_pembayaran` (`kode_bukti`, `kode_pesanan`, `bukti`, `atas_nama`, `kode_pelanggan`) VALUES
+(2, 3, '685a79c9867e0e1332fdaddf4a86cec5.PNG', 'Mulyadih', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_pelanggan`
+--
+
+CREATE TABLE `detail_pelanggan` (
+  `kode_detail` int(11) NOT NULL,
+  `kode_pelanggan` int(11) NOT NULL,
+  `no_tlpn` varchar(13) NOT NULL,
+  `gambar` varchar(50) NOT NULL,
+  `provinsi` int(11) NOT NULL,
+  `kota` int(11) NOT NULL,
+  `kecamatan` varchar(35) NOT NULL,
+  `kelurahan` varchar(35) NOT NULL,
+  `kode_pos` varchar(10) NOT NULL,
+  `alamat` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_pelanggan`
+--
+
+INSERT INTO `detail_pelanggan` (`kode_detail`, `kode_pelanggan`, `no_tlpn`, `gambar`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`, `alamat`) VALUES
+(0, 1, '081222129622', '560078c188fd4d63a484703f94b05b9e.jpeg', 9, 115, 'Cipayung', 'Cipayung Jaya', '16437', 'Jl.Rawa Sari I Rt.01/05'),
+(4, 2, '083872735382', '', 3, 457, 'Pamulnag', 'Reni Jaya', '16517', 'Jl.mana aja dah lupa gw');
 
 -- --------------------------------------------------------
 
@@ -78,17 +119,16 @@ CREATE TABLE `pelanggan` (
   `kode_pelanggan` int(11) NOT NULL,
   `nama_pelanggan` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telepon` varchar(13) DEFAULT NULL,
-  `katasandi` varchar(72) NOT NULL,
-  `alamat` varchar(100) DEFAULT NULL
+  `katasandi` varchar(72) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pelanggan`
 --
 
-INSERT INTO `pelanggan` (`kode_pelanggan`, `nama_pelanggan`, `email`, `telepon`, `katasandi`, `alamat`) VALUES
-(1, 'Mulyadih', 'e2016141010@gmail.com', '', '$2y$10$LVUNqo9336Oc2yjM90qL2e4kynS0hRHsRu5UXt7O.vPGXea98s3CS', '');
+INSERT INTO `pelanggan` (`kode_pelanggan`, `nama_pelanggan`, `email`, `katasandi`) VALUES
+(1, 'Mulyadih', 'e2016141010@gmail.com', '$2y$10$LVUNqo9336Oc2yjM90qL2e4kynS0hRHsRu5UXt7O.vPGXea98s3CS'),
+(2, 'Bagol', 'bagolakang@gmail.com', '$2y$10$NlqruQy0N3.Xkpwq/QA1beMFAe7goh8OLHsmYqulJNeMEkGa7Gw0O');
 
 -- --------------------------------------------------------
 
@@ -105,6 +145,15 @@ CREATE TABLE `pengiriman` (
   `no_telpon` varchar(13) NOT NULL,
   `kode_pesanan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengiriman`
+--
+
+INSERT INTO `pengiriman` (`kode_pengiriman`, `kota`, `alamat`, `berat`, `kurir`, `no_telpon`, `kode_pesanan`) VALUES
+(1, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 1020, 'JNE REG  (1-2 Hari) ', '081222129622', 3),
+(2, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 221, 'JNE REG  (1-2 Hari) ', '081222129622', 4),
+(3, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 221, 'JNE REG  (1-2 Hari) ', '081222129622', 4);
 
 -- --------------------------------------------------------
 
@@ -131,7 +180,8 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`kode_pesanan`, `kode_produk`, `kode_bahan`, `kode_pelanggan`, `file`, `status`, `tanggal`, `ukuran`, `kuantitas`, `berat`, `harga_total`) VALUES
-(3, 2, 3, 1, '1d75c700782fcec87d68f401d305e0a1.PNG', 'belum dibayar', '2021-04-04', '3 meter', 1, 1020, 120000);
+(3, 2, 3, 1, '1d75c700782fcec87d68f401d305e0a1.PNG', 'di proses', '2021-04-04', '3 meter', 1, 1020, 129000),
+(4, 11, 14, 1, 'e75a2c4c2a6caaf926a4156f54183d0d.pdf', 'di checkout', '2021-04-09', ' 1 / lembar', 50, 221, 59000);
 
 -- --------------------------------------------------------
 
@@ -206,6 +256,13 @@ ALTER TABLE `bukti_pembayaran`
   ADD KEY `kode_pelanggan` (`kode_pelanggan`);
 
 --
+-- Indexes for table `detail_pelanggan`
+--
+ALTER TABLE `detail_pelanggan`
+  ADD PRIMARY KEY (`kode_detail`),
+  ADD KEY `kode_pelanggan` (`kode_pelanggan`);
+
+--
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
@@ -255,13 +312,19 @@ ALTER TABLE `produk_bahan`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `kode_admin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kode_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bukti_pembayaran`
 --
 ALTER TABLE `bukti_pembayaran`
-  MODIFY `kode_bukti` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kode_bukti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `detail_pelanggan`
+--
+ALTER TABLE `detail_pelanggan`
+  MODIFY `kode_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -273,19 +336,19 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `kode_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `kode_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  MODIFY `kode_pengiriman` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kode_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `kode_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -309,6 +372,12 @@ ALTER TABLE `produk_bahan`
 ALTER TABLE `bukti_pembayaran`
   ADD CONSTRAINT `bukti_pembayaran_ibfk_1` FOREIGN KEY (`kode_pesanan`) REFERENCES `pesanan` (`kode_pesanan`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bukti_pembayaran_ibfk_2` FOREIGN KEY (`kode_pelanggan`) REFERENCES `pelanggan` (`kode_pelanggan`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_pelanggan`
+--
+ALTER TABLE `detail_pelanggan`
+  ADD CONSTRAINT `detail_pelanggan_ibfk_1` FOREIGN KEY (`kode_pelanggan`) REFERENCES `pelanggan` (`kode_pelanggan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pengiriman`
