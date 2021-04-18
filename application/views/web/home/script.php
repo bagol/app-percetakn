@@ -21,7 +21,7 @@ fetchApi('Produk/getKategori')
 									<ul>`;
                 for (produk in produks) {
                     html +=
-                        `<li><a href="${base_url+'produk/'+datas[data].kode_kategori}">${produks[produk].nama_produk}</a></li>`;
+                        `<li><a href="#">${produks[produk].nama_produk}</a></li>`;
                 }
                 html += `</ul>
 								</div>

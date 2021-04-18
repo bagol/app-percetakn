@@ -20,7 +20,7 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'dashboard';
         $this->load->view("admin/layout/header", $data);
-        // $this->load->view("admin/dashboard/index");
+        $this->load->view("admin/dashboard/index");
         $this->load->view("admin/layout/footer");
     }
 
@@ -57,6 +57,8 @@ class Admin extends CI_Controller
         $data['produk'] = $this->ProdukModel->getDetailProduk($id)->result_array();
         $data['bahan'] = $this->BahanModel->find(['kode_produk'=>$id])->result_array();
         $data['kategori'] = $this->KategoriModel->find()->result_array();
+
+       
         $this->load->view("admin/layout/header", $data);
         $this->load->view("admin/produk/detailProduk", $data);
         $this->load->view("admin/layout/footer");

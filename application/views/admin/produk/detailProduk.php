@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="card-footer d-flex justify-content-between ">
-        <a class="btn btn-primary" href="<?=$_SERVER['HTTP_REFERER']?>"><i class="fa fa-arrow-left"></i> Ubah Produk</a>
+        <a class="btn btn-primary" href="<?=base_url("admin/produk")?>"><i class="fa fa-arrow-left"></i> Kemabali</a>
         <div>
             <button class="btn btn-success" data-toggle="modal" data-target="#ubahModal"><i class="fa fa-edit"></i> Ubah
                 Produk</button>
