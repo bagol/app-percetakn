@@ -94,16 +94,33 @@ class Produk extends CI_Controller
     // menambahkan produk
     public function addProduk()
     {
-        $produk = [
-            "kode_produk" => "",
-            "nama_produk" => $this->input->post("nama_produk", true),
-            "satuan" => $this->input->post("satuan", true),
-            "kode_kategori" => $this->input->post("kategori", true),
-            "gambar" => $this->uploadGambarProduk(),
-        ];
-
-        $this->session->set_flashdata("scc", "data Produk berhasil ditambahkan");
-        redirect($_SERVER['HTTP_REFERER']);
+        $gambar = $this->uploadGambarProduk();
+        if($gambar){     
+            $produk = [
+                "kode_produk" => "",
+                "nama_produk" => $this->input->post("nama_produk", true),
+                "satuan" => $this->input->post("satuan", true),
+                "kode_kategori" => $this->input->post("kategori", true),
+                "gambar" => $gambar,
+            ];
+            $this->session->set_flashdata("scc", "data Produk berhasil ditambahkan");
+        }else{
+            $produk = [
+                "kode_produk" => "",
+                "nama_produk" => $this->input->post("nama_produk", true),
+                "satuan" => $this->input->post("satuan", true),
+                "kode_kategori" => $this->input->post("kategori", true),
+                "gambar" => "default.png",
+            ];
+            $this->session->set_flashdata("scc", "format gambar tidak sesuai");
+        }
+        if($this->ProdukModel->new($produk)){
+            redirect($_SERVER['HTTP_REFERER']);    
+        }else{
+            $this->session->set_flashdata("err", "terjadi kesalahan saat menambahkan produk");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+        
     }
 
     function deleteProduk($id = null){
@@ -226,7 +243,7 @@ class Produk extends CI_Controller
     public function uploadGambarProduk()
     {
         $config['upload_path'] = './assets/images/produk/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['allowed_types'] = 'jpg|png';
         $config['encrypt_name'] = true;
 
         $this->load->library('upload', $config);
@@ -235,6 +252,7 @@ class Produk extends CI_Controller
             return $this->upload->data("file_name");
         }
         
-        return "default.png";
+        return  array('error' => $this->upload->display_errors());
+        // return "default.png";
     }
 }

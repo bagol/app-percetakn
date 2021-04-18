@@ -43,6 +43,14 @@
                     </a>
                 </div>
                 <div class="login-form">
+                    <?php if($this->session->flashdata("err")){ ?>
+                         <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                            <span class="badge badge-pill badge-danger">Field</span> <?= $this->session->flashdata("err") ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                    <?php } ?>
                     <form action="<?=base_url('Auth/cekLogin')?>" method="post">
                         <div class="form-group">
                             <label>Email address</label>

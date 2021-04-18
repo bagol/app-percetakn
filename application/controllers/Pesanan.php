@@ -29,8 +29,7 @@ class Pesanan extends CI_Controller
         	"harga_total" => $this->input->post("total"),
         ];
 
-        
-
+       
     	if($this->PesananModel->store($data)){
     		$this->session->set_flashdata("scc","Produk berhasil dipesann silahkan lanjutkan tahap pembayaran agar pesanan anda segera diproses");
     		redirect("Web/cart");
@@ -81,10 +80,12 @@ class Pesanan extends CI_Controller
             if($this->PengirimanModel->store($pengiriman)){
                 redirect('web/cart');
             }else{
-                echo "gagal terjadi kesalahan saat menyimpan data pengiriman";
+                $this->session->set_flashdata("err","gagal terjadi kesalahan saat menyimpan data pengiriman");
+                redirect($_SERVER['HTTP_REFERER']);
             }
         }else{
-            echo "terjadi kesalahan saat menyimpan perubahan pada table Pesanan";
+            $this->session->set_flashdata("err","terjadi kesalahan saat menyimpan perubahan pada table Pesanan");
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
 

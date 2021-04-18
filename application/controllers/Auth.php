@@ -66,11 +66,11 @@ class Auth extends CI_Controller {
 				redirect("Admin");
 			}else{
 				$this->session->set_flashdata("err","Logigin Gagal password salah");
-				redirect("Auth/cekLogin");
+				redirect("Auth/loginAdmin");
 			}
 		}else{
 			$this->session->set_flashdata("err","Logigin Gagal email tidak ditemukan");
-				redirect("Auth/cekLogin");
+				redirect("Auth/loginAdmin");
 		}
 
 	}

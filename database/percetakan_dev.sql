@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2021 at 07:49 PM
+-- Generation Time: Apr 18, 2021 at 09:18 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -61,7 +61,7 @@ CREATE TABLE `bukti_pembayaran` (
 --
 
 INSERT INTO `bukti_pembayaran` (`kode_bukti`, `kode_pesanan`, `bukti`, `atas_nama`, `kode_pelanggan`) VALUES
-(2, 3, '685a79c9867e0e1332fdaddf4a86cec5.PNG', 'Mulyadih', 1);
+(3, 5, '16bb4049ff5e9ff5b24d441335dd18ca.jpg', 'Aris Ciswanto', 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `detail_pelanggan` (
 --
 
 INSERT INTO `detail_pelanggan` (`kode_detail`, `kode_pelanggan`, `no_tlpn`, `gambar`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`, `alamat`) VALUES
-(0, 1, '081222129622', '560078c188fd4d63a484703f94b05b9e.jpeg', 9, 115, 'Cipayung', 'Cipayung Jaya', '16437', 'Jl.Rawa Sari I Rt.01/05'),
+(0, 1, '081222129622', '37284b1c183a38bfbf6aa60b1bb6c5a7.png', 9, 115, 'Cipayung', 'Cipayung Jaya', '16437', 'Jl.Rawa Sari I Rt.01/05'),
 (4, 2, '083872735382', '', 3, 457, 'Pamulnag', 'Reni Jaya', '16517', 'Jl.mana aja dah lupa gw');
 
 -- --------------------------------------------------------
@@ -151,9 +151,7 @@ CREATE TABLE `pengiriman` (
 --
 
 INSERT INTO `pengiriman` (`kode_pengiriman`, `kota`, `alamat`, `berat`, `kurir`, `no_telpon`, `kode_pesanan`) VALUES
-(1, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 1020, 'JNE REG  (1-2 Hari) ', '081222129622', 3),
-(2, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 221, 'JNE REG  (1-2 Hari) ', '081222129622', 4),
-(3, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 221, 'JNE REG  (1-2 Hari) ', '081222129622', 4);
+(4, '115', 'Kec Cipayung Kel Cipayung Jaya Jl.Rawa Sari I Rt.01/05 16437', 29, 'JNE OKE  (2-3 Hari) ', '081222129622', 5);
 
 -- --------------------------------------------------------
 
@@ -180,8 +178,7 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`kode_pesanan`, `kode_produk`, `kode_bahan`, `kode_pelanggan`, `file`, `status`, `tanggal`, `ukuran`, `kuantitas`, `berat`, `harga_total`) VALUES
-(3, 2, 3, 1, '1d75c700782fcec87d68f401d305e0a1.PNG', 'di proses', '2021-04-04', '3 meter', 1, 1020, 129000),
-(4, 11, 14, 1, 'e75a2c4c2a6caaf926a4156f54183d0d.pdf', 'di checkout', '2021-04-09', ' 1 / lembar', 50, 221, 59000);
+(5, 18, 24, 1, 'e5bff6e73feccf31ab948d42a7d408fc.png', 'di proses', '2021-04-18', ' 1 / lembar', 1, 29, 88000);
 
 -- --------------------------------------------------------
 
@@ -203,11 +200,9 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`kode_produk`, `nama_produk`, `satuan`, `deskripsi`, `gambar`, `kode_kategori`) VALUES
-(1, 'Print Outdor ', 'meter', '', 'f586f141c8ee62ef81862fb783e4a529.PNG', 1),
-(2, 'Print Indoor', 'meter', 'Produk Cetak Stiker untuk didalam ruangan ', 'default.png', 1),
-(11, 'Print Warna', 'lembar', '', 'default.png', 2),
-(12, 'test produk 1', 'lembar', '', '95ba78c17efd305e59f3875ea4cd04e1.PNG', 1),
-(13, 'test produk 1', 'lembar', '', '0fcb60ed285350d6bd23d51ffc3255ff.PNG', 1);
+(16, 'Print Warna', 'lembar', '', 'a73a6fb896662cce35ca0c0374ee0865.PNG', 2),
+(17, 'Roll up Banner', 'lembar', '', 'fc813a2fc0cbb921747cf4b840695489.jpg', 2),
+(18, 'Stiker Matte Premium', 'lembar', '', '82970b8e3e1a5f5482fbcfbc1f0c6b53.png', 1);
 
 -- --------------------------------------------------------
 
@@ -230,12 +225,11 @@ CREATE TABLE `produk_bahan` (
 --
 
 INSERT INTO `produk_bahan` (`kode_bahan`, `kode_produk`, `bahan`, `berat`, `lebar`, `panjang`, `harga`) VALUES
-(1, 1, 'Flexi China 280 Heighress', 280, 100, 100, 17000),
-(2, 1, 'Flexi China 280 Standar', 280, 100, 100, 15000),
-(3, 2, 'Flexi China 340 Heighress', 340, 100, 100, 40000),
-(14, 11, 'HVS A4', 70, 21, 30, 1000),
-(15, 11, 'HVS A3', 70, 30, 42, 5000),
-(17, 12, 'Kertas', 70, 40, 40, 2000);
+(19, 16, 'HVS 70 Gram', 70, 21, 29, 500),
+(20, 17, 'Stainless ', 340, 60, 160, 100000),
+(21, 17, 'frontlite', 340, 60, 160, 190000),
+(24, 18, 'Matte Premium 60 x 40 cm', 120, 40, 60, 80000),
+(25, 18, 'Matte Jerman (60 x 40) Cm', 120, 40, 60, 95000);
 
 --
 -- Indexes for dumped tables
@@ -318,7 +312,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bukti_pembayaran`
 --
 ALTER TABLE `bukti_pembayaran`
-  MODIFY `kode_bukti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `kode_bukti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `detail_pelanggan`
@@ -342,25 +336,25 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  MODIFY `kode_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `kode_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `kode_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `kode_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `kode_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `produk_bahan`
 --
 ALTER TABLE `produk_bahan`
-  MODIFY `kode_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `kode_bahan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
